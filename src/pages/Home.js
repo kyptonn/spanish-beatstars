@@ -8,6 +8,10 @@ import {Swiper,SwiperSlide} from 'swiper/react';
 import SwiperCore from 'swiper'
 // import Swiper styles
 import 'swiper/swiper-bundle.css';
+import { Beatmakers } from '../components/Beatmakers';
+import { Generos } from '../components/Generos';
+import { Footer } from '../components/Footer';
+
 
  
 
@@ -78,7 +82,50 @@ export const Home = () => {
 
 
 
+            {/*  TOP BEATMAKERS   */}  
+            <div className="top-beatmakers">
+                <h2>Mejores Beatmakers</h2>
+                {/*  SWIPER   */}      
+                <Swiper
+                spaceBetween={0}
+                slidesPerView={1.8}       
+                >
+                    <SwiperSlide><Beatmakers/></SwiperSlide>
+                    <SwiperSlide><Beatmakers/></SwiperSlide>
+                    <SwiperSlide><Beatmakers/></SwiperSlide>
+                    <SwiperSlide><Beatmakers/></SwiperSlide>
+                    <SwiperSlide><Beatmakers/></SwiperSlide>
+                    <SwiperSlide><Beatmakers/></SwiperSlide>
+                    <SwiperSlide><Beatmakers/></SwiperSlide>
+                </Swiper>
+                {/*   SWIPER  */} 
+            </div>
 
+
+
+            {/*  EXPLORAR POR GÉNEROS   */}  
+            <div className="generos">
+                <h2>Búsqueda por Géneros</h2>
+                {/*  SWIPER   */}      
+                <Swiper
+                spaceBetween={0}
+                slidesPerView={1.8}       
+                >
+
+                    <SwiperSlide><Generos/></SwiperSlide>
+                    <SwiperSlide><Generos/></SwiperSlide>
+                    <SwiperSlide><Generos/></SwiperSlide>
+                    <SwiperSlide><Generos/></SwiperSlide>
+                    <SwiperSlide><Generos/></SwiperSlide>
+                    <SwiperSlide><Generos/></SwiperSlide>
+                    <SwiperSlide><Generos/></SwiperSlide>
+                    <SwiperSlide><Generos/></SwiperSlide>
+
+                </Swiper>
+                {/*   SWIPER  */} 
+            </div>
+
+            <Footer/>
         </div>
     )
 }

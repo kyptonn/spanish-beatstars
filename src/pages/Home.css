@@ -29,7 +29,7 @@ body{
 }
 
 
-
+/*    TOP BEATS SEMANA    */
 .top-beats-semana{
     margin-left:15px;
 }
@@ -40,19 +40,45 @@ body{
     color:white;
     
 }
-.caja-top-beats-semana{
-    display:inline-flex;
-}
 
 
 
 
 
+/*   TRENDING BEATS   */
 .trending-beats{
     margin-top:50px;
     margin-left:15px;
 }
 .trending-beats h2{
+    font-family: "Poppins";
+    font-size: 19px;
+    font-weight: 600;
+    color:white;
+}
+
+
+
+/*   TOP BEATMAKERS   */
+.top-beatmakers{
+    margin-top:50px;
+    margin-left:15px;
+}
+
+.top-beatmakers h2{
+    font-family: "Poppins";
+    font-size: 19px;
+    font-weight: 600;
+    color:white;
+}
+
+/* BUSQUEDA POR GÉNEROS */
+.generos{
+    margin-top:50px;
+    margin-left:15px;
+}
+
+.generos h2{
     font-family: "Poppins";
     font-size: 19px;
     font-weight: 600;
