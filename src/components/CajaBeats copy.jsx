@@ -10,13 +10,13 @@ export default class CajaBeats extends React.Component{
 
     render(){
         console.log(this.props.beatimagen1)
-        var imagen = this.props.imagens
+        
         return (
             <div>
                 <div className="beat-container">
-                    <div className="caja-cuadrada">
-                        <img className="imagen-fondo-beats"src={this.props.imagen}></img> 
-                        <img className="playStop"src={play}></img> 
+                    <div className="caja-cuadrada" >
+                        <img src={this.props.beatimagen1}></img>
+                         <img src={play}></img> 
 
                     </div>
                     {/* TITULO */}

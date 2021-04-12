@@ -1,23 +1,27 @@
 import React from 'react'
 import './Home.css'
 import {Navbar} from '../components/Navbar'
-import { CajaBeats } from '../components/CajaBeats';
+import CajaBeats from '../components/CajaBeats';
+import { Beatmakers } from '../components/Beatmakers';
+import { Generos } from '../components/Generos';
+import { Footer } from '../components/Footer';
 
 // import Swiper JS
 import {Swiper,SwiperSlide} from 'swiper/react';
 import SwiperCore from 'swiper'
 // import Swiper styles
 import 'swiper/swiper-bundle.css';
-import { Beatmakers } from '../components/Beatmakers';
-import { Generos } from '../components/Generos';
-import { Footer } from '../components/Footer';
 
 
+
+
+import beats from '../database/beats.json'
  
 
 var searchIcon = <i class="fas fa-search"></i>;
 export const Home = () => {
-    
+ 
+
     return (
         <div>
             <Navbar />
@@ -50,13 +54,15 @@ export const Home = () => {
                 spaceBetween={0}
                 slidesPerView={1.8}       
                 >
-                    <SwiperSlide><CajaBeats/></SwiperSlide>
-                    <SwiperSlide><CajaBeats/></SwiperSlide>
-                    <SwiperSlide><CajaBeats/></SwiperSlide>
-                    <SwiperSlide><CajaBeats/></SwiperSlide>
-                    <SwiperSlide><CajaBeats/></SwiperSlide>
-                    <SwiperSlide><CajaBeats/></SwiperSlide>
-                    <SwiperSlide><CajaBeats/></SwiperSlide>
+
+                    {
+                        beats.map((beat) =>  <SwiperSlide><CajaBeats 
+                        nombrebeatmaker={beat.nombrebeatmaker}
+                        beat1nombre={beat.beat1nombre}
+                        imagen={beat.beat1.imagen} //NOS HEMOS KEDADO AKI. HAY QUE IMPORTAR ESTO AL CSS, O BIEN EJECUTAR LA IMAGEN DENTRO DE CAJABEATS.JSX
+
+                        /></SwiperSlide>)
+                    }
                 </Swiper>
             {/*   SWIPER  */}     
            </div>
@@ -69,13 +75,15 @@ export const Home = () => {
                 spaceBetween={0}
                 slidesPerView={1.8}       
                 >
-                    <SwiperSlide><CajaBeats/></SwiperSlide>
-                    <SwiperSlide><CajaBeats/></SwiperSlide>
-                    <SwiperSlide><CajaBeats/></SwiperSlide>
-                    <SwiperSlide><CajaBeats/></SwiperSlide>
-                    <SwiperSlide><CajaBeats/></SwiperSlide>
-                    <SwiperSlide><CajaBeats/></SwiperSlide>
-                    <SwiperSlide><CajaBeats/></SwiperSlide>
+                   {
+                        beats.map((beat) =>  <SwiperSlide><CajaBeats 
+                        nombrebeatmaker={beat.nombrebeatmaker}
+                        beat1nombre={beat.beat1nombre}
+                        imagen={beat.beat1.imagen} //NOS HEMOS KEDADO AKI. HAY QUE IMPORTAR ESTO AL CSS, O BIEN EJECUTAR LA IMAGEN DENTRO DE CAJABEATS.JSX
+
+                        /></SwiperSlide>)
+                    }
+                   
                 </Swiper>
             {/*   SWIPER  */}     
            </div>
