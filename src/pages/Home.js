@@ -1,26 +1,70 @@
-import React from 'react'
+import React, {useState, useContext, useEffect} from 'react';
 import './Home.css'
-import {Navbar} from '../components/Navbar'
+import { Navbar } from '../components/Navbar'
 import CajaBeats from '../components/CajaBeats';
 import { Beatmakers } from '../components/Beatmakers';
 import { Generos } from '../components/Generos';
 import { Footer } from '../components/Footer';
+
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
+
+import beats from '../database/beats.json'
 
 // import Swiper JS
 import {Swiper,SwiperSlide} from 'swiper/react';
 import SwiperCore from 'swiper'
 // import Swiper styles
 import 'swiper/swiper-bundle.css';
+import {Player } from '../components/AudioPlayer';
+import { GlobalStateContext } from '../contexts/GlobalState';
+import { GlobalSongContext} from '../contexts/CurrentPlaying'
 
 
+import play from '../components/circuloplay.png'
+import pause from '../components/circulostop.png'
+import { Switch } from 'react-router';
 
-
-import beats from '../database/beats.json'
- 
 
 var searchIcon = <i class="fas fa-search"></i>;
-export const Home = () => {
- 
+
+
+export function Home() {
+    /* console.log(mp3.target.nextElementSibling.innerText); */
+
+    const [currentSong, setCurrentSong] = useContext(GlobalSongContext)
+    const {currentPlaying} = currentSong;
+
+    useEffect(() => {
+        console.log('la base actual se ha actualizado')
+    }, [currentSong])
+
+
+
+
+
+
+    const [globalState, setGlobalState] = useContext(GlobalStateContext)
+    const {beatActivo} = globalState;
+
+    useEffect(() =>{
+        console.log('el globalstate se ha actualizado')
+    }, [globalState])
+
+
+
+    const [estadoReproductor, setEstadoReproductor] = useState(play)
+
+    const toggler = () => {
+        estadoReproductor ? setEstadoReproductor(pause): setEstadoReproductor(play)
+    }
+
+
+
+
+
+
+
 
     return (
         <div>
@@ -54,15 +98,42 @@ export const Home = () => {
                 spaceBetween={0}
                 slidesPerView={1.8}       
                 >
-
                     {
-                        beats.map((beat) =>  <SwiperSlide><CajaBeats 
-                        nombrebeatmaker={beat.nombrebeatmaker}
-                        beat1nombre={beat.beat1nombre}
-                        imagen={beat.beat1.imagen} //NOS HEMOS KEDADO AKI. HAY QUE IMPORTAR ESTO AL CSS, O BIEN EJECUTAR LA IMAGEN DENTRO DE CAJABEATS.JSX
+                        beats.map((beat) =>  
 
-                        /></SwiperSlide>)
-                    }
+                        <SwiperSlide>
+                         {/* e.target.nextElementSibling.lastChild.childNodes[1].innerText */}
+                                
+                                <div onClick={(e) => {console.log(e.target.nextElementSibling.innerText);
+                                 
+                                 /* setGlobalState({beatActivo:e.target.nextElementSibling.innerText}) ; */
+                                    } }>
+                                   <div class="playerstop-container" >
+                                       
+                                        
+                                     <img src={estadoReproductor}   onClick={(e) => {console.log(e);
+                                                                        setGlobalState({beatActivo:e.target.nextElementSibling.children[0].children[0].innerText});
+                                                                        setCurrentSong({currentPlaying:e.target.nextElementSibling.innerText});
+                                                                    
+                                                                    }} className="playerstop"/> 
+                                       
+
+
+                                        <CajaBeats 
+                                        nombrebeatmaker={beat.nombrebeatmaker}
+                                        beat1nombre={beat.beat1nombre}
+                                        imagen={beat.beat1.imagen}
+                                        mp3={beat.mp3}
+                                        />                          
+                                        
+                                </div>
+                            </div>
+                        </SwiperSlide>    
+                         
+                         )
+                        }
+
+
                 </Swiper>
             {/*   SWIPER  */}     
            </div>
@@ -76,12 +147,19 @@ export const Home = () => {
                 slidesPerView={1.8}       
                 >
                    {
-                        beats.map((beat) =>  <SwiperSlide><CajaBeats 
-                        nombrebeatmaker={beat.nombrebeatmaker}
-                        beat1nombre={beat.beat1nombre}
-                        imagen={beat.beat1.imagen} //NOS HEMOS KEDADO AKI. HAY QUE IMPORTAR ESTO AL CSS, O BIEN EJECUTAR LA IMAGEN DENTRO DE CAJABEATS.JSX
-
-                        /></SwiperSlide>)
+                        beats.map((beat) =>  
+                        <SwiperSlide>
+                           <div onClick={(e) => {console.log(e.target.nextElementSibling.innerText);
+                            setGlobalState({beatActivo:e.target.nextElementSibling.innerText})} }>
+                                <CajaBeats 
+                                nombrebeatmaker={beat.nombrebeatmaker}
+                                beat1nombre={beat.beat1nombre}
+                                imagen={beat.beat1.imagen}
+                                mp3={beat.mp3}
+                                />
+                        
+                            </div>
+                        </SwiperSlide>)
                     }
                    
                 </Swiper>
@@ -133,7 +211,13 @@ export const Home = () => {
                 {/*   SWIPER  */} 
             </div>
 
+        <div className="reproductor">
+            <Player /> 
+        </div>
+
+
             <Footer/>
         </div>
     )
-}
+};
+

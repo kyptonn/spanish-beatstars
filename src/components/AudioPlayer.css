@@ -1,0 +1,7 @@
+.player{
+    position:sticky;
+}
+
+.player-apagado{
+    display:none;
+}

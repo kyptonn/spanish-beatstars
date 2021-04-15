@@ -1,0 +1,76 @@
+.inicio-sesion{
+    color:white;
+   
+    font-family: "Poppins";
+    text-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+.inicio-sesion img{
+    width: 50px;
+    margin-top:40px;
+    margin-bottom: 20px;
+}
+
+.inicio-sesion h2{
+    font-weight: 600;
+    margin:0px 80px 20px 80px;
+}
+
+
+
+
+
+
+.introducir-datos h5{
+    float:left;
+    margin-left:30px;
+    margin-top:15px;
+    margin-bottom:0;
+
+    font-size: 15px;
+}
+
+.introducir-datos input{
+   width: 85%;
+   border-radius: 5px;
+
+   padding: 5px 0px 5px 0px;
+    
+}
+
+.introducir-datos button{
+    width: 85%;
+    height: 35px;
+    margin-top:35px;
+    background-color: rgba(255, 0, 0, 0.694);
+    border-style: solid;
+    border-color:transparent;
+    border-radius:5px;
+
+    color:White;
+    font-weight: 600;
+
+}
+
+.introducir-datos button:hover{
+    background-color: rgba(255, 73, 73, 0.694);
+    
+}
+
+
+.pregunta{
+    margin-top:20px;
+}
+h6{
+    color:rgba(255, 255, 255, 0.358);
+}
+
+.error{
+    background-color: rgba(255, 0, 0, 0.509);
+    margin:0px 50px 0px 50px;
+    padding:3px 0px 3px 0px;
+    border-radius:8px;
+    font-weight: 600;
+}

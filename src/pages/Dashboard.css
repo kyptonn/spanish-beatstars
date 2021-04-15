@@ -1,0 +1,47 @@
+.container-general{
+    padding-top:100px;
+    padding-left:20px;
+    color:white;
+}
+
+.botones-generales button{
+    background-color: transparent;
+    border:solid;
+    border-radius:20px;
+    border-width: 2px;
+    color:white;
+    margin-bottom:30px;
+}
+.en-venta{
+    margin-left:20px;
+}
+
+
+
+
+.datos-cuenta{
+    margin-top: 20px;
+}
+
+.actualizar{
+    margin-left:20px;
+}
+
+.cerrar-sesion{
+    margin-top:20px;
+    background-color: red;
+    border:solid;
+    border-radius: 10px;
+    border-color:red;
+
+    font-weight: 600;
+    color:white;
+}
+
+.footer{
+    position:absolute;
+    bottom:0;
+    width: 100%;
+}
+
+

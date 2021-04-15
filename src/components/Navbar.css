@@ -36,11 +36,13 @@ nav{
 
     align-items: center;
     width:60%;
-    margin-right:1vw;
+    margin-right:2.5vw;
     z-index:5;
 
     padding:0;
     margin-bottom:0;
+
+   
    
 }
 
@@ -48,6 +50,8 @@ nav{
     text-decoration: none;
     color:White;
     font-size: 14px;
+    margin-left:2px;
+    margin-right:2px
    
 }
 

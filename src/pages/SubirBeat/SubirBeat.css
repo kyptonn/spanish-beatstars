@@ -1,0 +1,25 @@
+.container-maestro{
+    padding-top:100px;
+    color:white;
+    justify-content: center;
+    text-align: center;
+
+
+    margin-right:10px;
+    margin-left:10px;
+}
+
+.container-maestro input{
+    margin-right:40px;
+    margin-left:40px;
+
+    
+}
+
+
+.container-maestro h5{
+    
+    font-size: 1rem;
+
+    
+}

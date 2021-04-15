@@ -16,14 +16,16 @@ export const Navbar = () => {
     return (
        <nav>
                 <div className="logo">
-                <img src={logo} alt="Logo"/>
+                <Link to="/"><img src={logo} alt="Logo"/></Link>
                 </div>
 
                 
                 <ul className={'navlinks'}>
-                    <Link to='/'><a>Iniciar Sesión</a></Link>
+                    <Link to='/inicio-sesion'><a>Iniciar Sesión</a></Link>
+                   
                     {/* <li className="link"><a href="#">Home</a></li>*/}
-                    <Link to='/'><a>Vender</a></Link>
+                    <Link to='/subir-beat'><a>Subir</a></Link>
+                    <Link to='/panel'><a>Panel</a></Link>
                     {/* <li className="link"><a href="#">Services</a></li> */}
                     <Link to='/'><i class="fas fa-shopping-cart"></i></Link>
                     {/* <li className="link"><a href="#">Contact Us</a></li> */}

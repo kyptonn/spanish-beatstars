@@ -3,7 +3,6 @@ import './Beatmakers.css'
 import verificado from './verificado.png'
 
 
-
 export const Beatmakers = () => {
     return (
         <div>

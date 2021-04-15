@@ -38,6 +38,8 @@ body{
     font-size: 19px;
     font-weight: 600;
     color:white;
+
+   
     
 }
 
@@ -83,4 +85,30 @@ body{
     font-size: 19px;
     font-weight: 600;
     color:white;
+}
+
+.playerApagado{
+    display:none;
+}
+
+.reproductor{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    z-index:10;
+}
+.playerstop-container{
+    display: flex;
+    float:left;
+    
+    justify-content: center;
+    align-items:center;
+
+   
+
+}
+.playerstop{
+    position: absolute; 
+    margin-bottom: 60px;
+    z-index: 9;
 }

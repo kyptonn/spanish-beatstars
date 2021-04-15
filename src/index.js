@@ -3,10 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import GlobalState from './contexts/GlobalState';
+import CurrentPlaying from './contexts/CurrentPlaying';
+
+const INDEX = () => (
+<CurrentPlaying>
+<GlobalState>
+<App />
+</GlobalState>
+</CurrentPlaying> );
 
 ReactDOM.render(
   
-    <App />,
+   <INDEX/>,
   document.getElementById('root')
 );
 
