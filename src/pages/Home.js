@@ -1,4 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
+import {useAuth} from '../contexts/AuthContext'
+import {Link, useHistory} from 'react-router-dom'
 import './Home.css'
 import { Navbar } from '../components/Navbar'
 import CajaBeats from '../components/CajaBeats';
@@ -6,14 +8,17 @@ import { Beatmakers } from '../components/Beatmakers';
 import { Generos } from '../components/Generos';
 import { Footer } from '../components/Footer';
 
+import firebase, { db, auth } from '../firebase'
+
+import '../components/CajaBeats.css'
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
-import beats from '../database/beats.json'
+
 
 // import Swiper JS
 import {Swiper,SwiperSlide} from 'swiper/react';
-import SwiperCore from 'swiper'
+import SwiperCore, { Autoplay } from 'swiper'
 // import Swiper styles
 import 'swiper/swiper-bundle.css';
 import {Player } from '../components/AudioPlayer';
@@ -26,46 +31,62 @@ import pause from '../components/circulostop.png'
 import { Switch } from 'react-router';
 
 
+
+
 var searchIcon = <i class="fas fa-search"></i>;
 
 
-export function Home() {
-    /* console.log(mp3.target.nextElementSibling.innerText); */
 
+
+
+export function Home(props) {
+
+    /////// REPRODUCTOR //////////////////////////////////////////////////////
     const [currentSong, setCurrentSong] = useContext(GlobalSongContext)
     const {currentPlaying} = currentSong;
-
     useEffect(() => {
         console.log('la base actual se ha actualizado')
     }, [currentSong])
 
-
-
-
-
-
     const [globalState, setGlobalState] = useContext(GlobalStateContext)
     const {beatActivo} = globalState;
-
     useEffect(() =>{
         console.log('el globalstate se ha actualizado')
     }, [globalState])
 
-
-
     const [estadoReproductor, setEstadoReproductor] = useState(play)
-
-    const toggler = () => {
-        estadoReproductor ? setEstadoReproductor(pause): setEstadoReproductor(play)
-    }
+////////////////////////////////////////////////////////////////////////
 
 
+    const datosArray = []
+    const [datosGenerales, setDatosGenerales] = useState([])
+
+    
+
+    const [spells, setSpells] = useState([])
+
+    useEffect(()=> {
+        const fetchData = async () => {
+            const db = firebase.firestore()
+            const data = await db.collection("beatsVenta").get()
+            setSpells(data.docs.map(doc => doc.data()))
+
+
+        }
+        fetchData()
+    },[])
+
+    console.log(spells)
 
 
 
+   /* console.log(datosArray)  */
+/* console.log(datosGenerales) */
 
 
-
+/* console.log(beats) */
+   const {history} = props;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
             <Navbar />
@@ -73,15 +94,9 @@ export function Home() {
             <div className="imagen-inicio">
                 <img width="100%" opacity="" src="https://images.unsplash.com/photo-1593642532454-e138e28a63f4?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="hola"></img>
                 <div className="overlay"></div>
-
                 <h2>#1 MARKETPLACE DE HABLA HISPANA</h2>
-                {/* <h3>#1 MARKETPLACE DE HABLA HISPANA</h3> */}
             </div>
 
-           {/*  <div className="busqueda-inicio">
-                <input className="buscador" placeholder="  Prueba con 'Trap Beat' o 'Reggaeton Beat'"></input>
-            </div> */}
-            
             <div className="buscador-inicio">
                 <div class="input-group mb-3 p-3">
                     <span class="input-group-text" id="basic-addon1">{searchIcon}</span>
@@ -89,82 +104,57 @@ export function Home() {
                 </div>
            </div>
 
-
             {/*  TOP BEATS DE LA SEMANA   */}      
            <div className="top-beats-semana">
+               {/* {DatosGlobales()} */}
                 <h2>Top Beats de la Semana</h2>
                 {/*  SWIPER   */}      
-                <Swiper
+                 <Swiper
                 spaceBetween={0}
                 slidesPerView={1.8}       
                 >
-                    {
-                        beats.map((beat) =>  
-
-                        <SwiperSlide>
-                         {/* e.target.nextElementSibling.lastChild.childNodes[1].innerText */}
-                                
-                                <div onClick={(e) => {console.log(e.target.nextElementSibling.innerText);
-                                 
-                                 /* setGlobalState({beatActivo:e.target.nextElementSibling.innerText}) ; */
-                                    } }>
-                                   <div class="playerstop-container" >
-                                       
+ 
+                            {spells.map(spell => (
+                                <SwiperSlide>
+                                    
+                                    <div onClick={(e) => console.log(e)} className="beat-container">    
                                         
-                                     <img src={estadoReproductor}   onClick={(e) => {console.log(e);
-                                                                        setGlobalState({beatActivo:e.target.nextElementSibling.children[0].children[0].innerText});
-                                                                        setCurrentSong({currentPlaying:e.target.nextElementSibling.innerText});
-                                                                    
-                                                                    }} className="playerstop"/> 
-                                       
+                                        <div className="caja-cuadrada">
+                                            
+                                           <img src={estadoReproductor}   
+                                            onClick={(e) => {console.log(e.target.nextElementSibling.children[1].innerText);
+                                            setGlobalState({beatActivo:e.target.nextElementSibling.children[0].innerText});
+                                            setCurrentSong({currentPlaying:e.target.nextElementSibling.children[1].innerText});                            
+                                            }} className="playerstop" /> 
+                                            <div className="info-oculta">
+                                                <p>{spell.beatUrl}</p>
+                                                <p>{spell.name}</p> 
+                                            </div>
+
+                                     <a href={`/beat/${spell.identificador}`}>
+                                            <img className="imagen-fondo-beats"src={spell.imagenURL}/>
+                                            
+                                            <div className="info-oculta">
+                                                <p>{spell.beatUrl}</p> 
+                                            </div>
+                                           
+                                            
+                                            
+                                        </a>
+                                        </div>
+                                        <h2 key={spell.name}>{spell.name}</h2>
+                                        <h3>{spell.nombreUsuario}</h3>
+                                    </div>
+                                   
+                                </SwiperSlide>
+                            ))}
+
+              </Swiper>   
+            </div>
 
 
-                                        <CajaBeats 
-                                        nombrebeatmaker={beat.nombrebeatmaker}
-                                        beat1nombre={beat.beat1nombre}
-                                        imagen={beat.beat1.imagen}
-                                        mp3={beat.mp3}
-                                        />                          
-                                        
-                                </div>
-                            </div>
-                        </SwiperSlide>    
-                         
-                         )
-                        }
 
-
-                </Swiper>
-            {/*   SWIPER  */}     
-           </div>
-
-            {/*  TOP BEATS DE LA SEMANA   */}      
-            <div className="trending-beats">
-                <h2>Trending Beats</h2>
-                {/*  SWIPER   */}      
-                <Swiper
-                spaceBetween={0}
-                slidesPerView={1.8}       
-                >
-                   {
-                        beats.map((beat) =>  
-                        <SwiperSlide>
-                           <div onClick={(e) => {console.log(e.target.nextElementSibling.innerText);
-                            setGlobalState({beatActivo:e.target.nextElementSibling.innerText})} }>
-                                <CajaBeats 
-                                nombrebeatmaker={beat.nombrebeatmaker}
-                                beat1nombre={beat.beat1nombre}
-                                imagen={beat.beat1.imagen}
-                                mp3={beat.mp3}
-                                />
-                        
-                            </div>
-                        </SwiperSlide>)
-                    }
-                   
-                </Swiper>
-            {/*   SWIPER  */}     
-           </div>
+           
 
 
 

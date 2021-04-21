@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react'
-import './Registro.css'
+import './ForgotPassword.css'
 import logo from '../components/logo-blanco.png'
 import { AuthProvider, useAuth } from '../contexts/AuthContext'
 import { Link } from 'react-router-dom'
@@ -34,34 +34,27 @@ export default function ForgotPassword() {
    
     return (
         
-        <div>
+        <div className="superior">
             <div className="inicio-sesion">
+                
                 <Link to="/"><img src={logo}></img></Link>
-                {/* <h2>Inicia Sesión para continuar</h2> */}
                 <h2>Recuperar Contraseña</h2>
            
               
                     {error && <p>{error}</p>}
                     {message && <p>{message}</p>}
 
-             
-                <form onSubmit={handleSubmit}>
+                
+                
+                <form className="formulario" onSubmit={handleSubmit}>
                     <div className="introducir-datos">
-                        <h5>Email</h5>
+                        
                         <input id="email"type="text" ref={emailRef} placeholder="   Introduce tu email"className="usuario-email"></input>
-                       
                        
                         <button disabled={loading} type="submit" className="boton-sesion">Recuperar Contraseña</button>
 
-
-
-
                         <h6 className="pregunta">¿Aún no estás registrado? <Link to="/registro">Regístrate</Link></h6>
-                       
-
                         <h6><Link to="/inicio-sesion">Login</Link></h6>
-                    
-                    
                     </div>
                 </form>
             </div>

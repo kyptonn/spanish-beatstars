@@ -1,5 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react'
 import {auth} from '../firebase'
+import {createUserDocument} from '../firebase'
 
 const AuthContext = React.createContext()
 
@@ -12,13 +13,22 @@ export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
     
-    function registro(email, password){
+    
+    function registro(email, password, displayName){
         return auth.createUserWithEmailAndPassword(email, password)
+      
     }
+        
+
+   
+
+
 
     function inicioSesion(email, password){
         return auth.signInWithEmailAndPassword(email,password)
     }
+
+ 
 
     function logout(){
         return auth.signOut()

@@ -1,71 +1,84 @@
-import React, {useRef, useState} from 'react'
-import './Registro.css'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Navbar } from '../components/Navbar';
+import { auth, createUserDocument } from '../firebase';
+
+import './InicioSesion.css'
+
 import logo from '../components/logo-blanco.png'
-import { AuthProvider, useAuth } from '../contexts/AuthContext'
-import { Link, useHistory } from 'react-router-dom'
+
+class Login extends Component {
+  state = { email: '', password: '' };
+
+  handleChange = (e) => {
+    const { name, value } = e.target;
+
+    this.setState({ [name]: value });
+  };
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    const { email, password } = this.state;
+    if (email && password) {
+      try {
+        await auth.signInWithEmailAndPassword(email, password);
+        
+    } catch (error) {
+        console.log('error logging in', error);
+        alert('Error al iniciar la sesión. Comprueba los campos')
+      }/* alert('la sesion se ha iniciado correctamente') */
+      if (window.confirm('La sesión se ha iniciado correctamente')) 
+        {
+        window.location.href='/panel';
+        };
 
 
-export default function InicioSesion() {
-
-    const emailRef = useRef()
-    const passwordRef = useRef()
-    const {inicioSesion} = useAuth()
-    const {registro} = useAuth()
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
-    const history = useHistory()
-
-    async function handleSubmit(e) {
-        e.preventDefault()
-
-       
-        try{
-            setError('')
-            setLoading(true)
-        await inicioSesion(emailRef.current.value, passwordRef.current.value)
-        history.push("/panel")
-        } catch {
-            setError(  <div className="error animate__animated animate__bounceIn">Error al iniciar sesión</div>)
-        }
-
-        setLoading(false)
     }
-   
+
+    // this.setState({ email: '', password: '' });
+  };
+
+  render() {
+    const { email, password } = this.state;
     return (
-        
-        <div>
-            <div className="inicio-sesion">
-                <Link to="/"><img src={logo}></img></Link>
-                {/* <h2>Inicia Sesión para continuar</h2> */}
-                <h2>Inicia sesión para continuar</h2>
-           
-              
-                    {error && <p>{error}</p>}
-             
-                <form onSubmit={handleSubmit}>
-                    <div className="introducir-datos">
-                        <h5>Email</h5>
-                        <input id="email"type="text" ref={emailRef} placeholder="   Introduce tu email"className="usuario-email"></input>
-                        <h5>Contraseña</h5>
-                        <input id="password" type="password" ref={passwordRef} placeholder="   Introduce tu contraseña" className="contrasena"></input>
-                        <button disabled={loading} type="submit" className="boton-sesion">Iniciar Sesión</button>
+      
+       <div className="superior">
+        <form className="signup-login" onSubmit={this.handleSubmit}>
+          <div className="container-master">
+          <Link to="/"><img src={logo}></img></Link>
+            <h2>Iniciar Sesión</h2>
+            <br/>
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={this.handleChange}
+              placeholder="Email"
+            />
+            <br></br>
+            <label>Contraseña</label>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={this.handleChange}
+              placeholder="Contraseña"
+            />
+            <br></br>
+            <button>Iniciar Sesión</button>
 
+            <br></br>
 
-
-
-                        <h6 className="pregunta">¿Aún no estás registrado? <Link to="/registro">Regístrate</Link></h6>
-                       
-
-                        <h6><Link to="/forgot-password">¿Olvidase tu contraseña?</Link></h6>
-                    
-                    
-                    </div>
-                </form>
-            </div>
-
-
+            <p><Link to="/forgot-password"> ¿Has olvidado la contraseña?</Link></p>
+            <p><Link to="/registro">¿Aún no tienes cuenta?</Link></p>
             
+          </div>
+        </form>
         </div>
-        
-    )
+     
+    );
+  }
 }
+
+export default Login;

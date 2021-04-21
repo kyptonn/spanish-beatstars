@@ -1,0 +1,73 @@
+
+.container-general-beatmaker{
+    padding-top:130px;
+    font-family: "Poppins";
+    color:white;
+   
+}
+.portada{
+    display:grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    justify-items: center;
+}
+
+.beatPortada{
+    width: 150px;
+    object-fit: cover;
+}
+.portada h2{
+    margin-top:15px;
+}
+.portada h4{
+    font-size: 18px;
+    margin-top:5px;
+}
+
+
+.tempo{
+    display:flex;
+    align-self: center;
+    justify-content: center;
+}
+.tempo h5{
+    padding-left:10px;
+    padding-right:10px;
+
+    margin-top:10px;
+
+    font-size: 15px;
+    color:gray;
+}
+.tempo img{
+    height: 15px;
+    /* margin-bottom:8px; */
+}
+
+.boton-compra{
+    padding:5px 25px 5px 25px;
+    margin-top:5px;
+
+    border-radius:10px;
+    background-color: red;
+    color:white;
+    font-weight: 600;
+
+    border:none;
+}
+
+.carrito{
+    width: 25px;
+    margin-bottom: 4px;
+}
+
+.circuloplay{
+    width: 40px;
+}
+form {
+    width:300px;
+    height: 20px;
+    color:white;
+    background-color: white;
+}

@@ -27,14 +27,14 @@ export const Navbar = () => {
                     <Link to='/subir-beat'><a>Subir</a></Link>
                     <Link to='/panel'><a>Panel</a></Link>
                     {/* <li className="link"><a href="#">Services</a></li> */}
-                    <Link to='/'><i class="fas fa-shopping-cart"></i></Link>
+                    <Link to='/carrito'><i class="fas fa-shopping-cart"></i></Link>
                     {/* <li className="link"><a href="#">Contact Us</a></li> */}
                     <div onClick={cambiarEstado} className="hamburger-toggle2">
                     
                 </div>
 
 
-
+                
                 </ul>
                 
                 

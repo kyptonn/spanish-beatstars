@@ -1,0 +1,59 @@
+.superior{
+    padding-top: 80px;
+}
+
+.superior h1{
+    font-family:'Bebas Neue';
+    color:white;
+    margin-left:15px;
+    font-size: 35px;
+}
+
+.general{
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+
+    font-family: "Poppins";
+}
+
+
+.beat-container{
+    align-self: center;
+    justify-self: center;
+    width:160px;
+/*    display: inline-block; */
+    margin:10px 0px 20px 0px;
+   /* padding-left: 10px; */
+}
+
+.caja-cuadrada{
+    display: flex;
+    width: 160px;
+    height: 160px;
+   
+    background-position: center;
+    background-size: cover;
+
+    margin-right:0px;
+
+    border-radius:20px;
+}
+
+.imagen-fondo-beats{
+    display:flex;
+    width: 160px;
+    height: 160px;
+    object-fit:cover;
+    border-radius:20px;
+    z-index:2;
+}
+.beat-container h4{
+    color:#0b8aff;
+    font-size: 16px;
+    margin-top:5px;
+    margin-bottom: 0px;
+}
+.beat-container h2{
+    margin-top:5px;
+}

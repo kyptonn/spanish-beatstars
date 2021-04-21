@@ -5,12 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import GlobalState from './contexts/GlobalState';
 import CurrentPlaying from './contexts/CurrentPlaying';
+import GlobalCartItems from './contexts/CartContext';
 
 const INDEX = () => (
 <CurrentPlaying>
+<GlobalCartItems>
 <GlobalState>
 <App />
 </GlobalState>
+</GlobalCartItems>
 </CurrentPlaying> );
 
 ReactDOM.render(

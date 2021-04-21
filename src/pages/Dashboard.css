@@ -6,16 +6,23 @@
 
 .botones-generales button{
     background-color: transparent;
+    text-decoration: none;
     border:solid;
     border-radius:20px;
     border-width: 2px;
     color:white;
-    margin-bottom:30px;
-}
-.en-venta{
-    margin-left:20px;
+    margin-bottom:10px;
 }
 
+
+.en-venta{
+    margin-left:20px;
+    color:white;
+    text-decoration: none;
+}
+.perfil{
+    margin-top:0;
+}
 
 
 

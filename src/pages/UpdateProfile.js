@@ -54,7 +54,7 @@ export default function UpdateProfile() {
         
         <div>
             <div className="inicio-sesion">
-                <img src={logo}></img>
+            <Link to="/"><img src={logo}></img></Link>
                 {/* <h2>Inicia Sesión para continuar</h2> */}
                 <h2>Update Profile</h2>
            
