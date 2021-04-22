@@ -29,6 +29,7 @@ import { GlobalSongContext} from '../contexts/CurrentPlaying';
 import play from '../components/circuloplay.png'
 import pause from '../components/circulostop.png'
 import { Switch } from 'react-router';
+import NavToggler from '../components/NavToggler/NavToggler';
 
 
 
@@ -90,6 +91,7 @@ export function Home(props) {
     return (
         <div>
             <Navbar />
+            <NavToggler />
            
             <div className="imagen-inicio">
                 <img width="100%" opacity="" src="https://images.unsplash.com/photo-1593642532454-e138e28a63f4?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="hola"></img>

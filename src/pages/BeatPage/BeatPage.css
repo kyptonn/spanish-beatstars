@@ -14,7 +14,7 @@
 }
 
 .beatPortada{
-    width: 150px;
+    width: 180px;
     object-fit: cover;
 
     border-radius: 20px;
@@ -67,9 +67,90 @@
 .circuloplay{
     width: 40px;
 }
-form {
+
+
+
+
+
+
+
+
+
+.div-overlay-oculto{
+    position:absolute;
+    display:none;
+    top:0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.756);
+    z-index:6;
+
+    justify-items: center;
+    justify-content: center;
+
+    align-items: center;
+}
+
+.div-overlay-oculto-activo{
+    position:absolute;
+    display:flex;
+    top:0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.756);
+    z-index:6;
+
+    justify-items: center;
+    justify-content: center;
+
+    align-items: center;
+}
+
+
+
+.alerta-overlay{
+    display:grid;
+    width: 80%;
+    height: 160px;
+    background-color: rgb(53, 53, 53);
+    top:50vh;
+    text-align: center;
+    align-items: center;
+
+    border-radius: 20px;
+    
+}
+
+.alerta-overlay h1{
+    font-size: 20px;
+    align-self: center;
+    margin-bottom: 0;
+}
+
+.alerta-overlay button{
+    border-radius: 20px;
+    color:white;
+    align-self: center;
+    justify-self: center;
+    background-color: transparent;
+    border: solid;
+    border-color: white;
+    width: 50%;
+    margin-top:5px;
+}
+
+
+
+
+
+
+
+
+
+
+/* form {
     width:300px;
     height: 20px;
     color:white;
     background-color: white;
-}
+} */

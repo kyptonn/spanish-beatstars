@@ -2,6 +2,8 @@ import React, {useState, useEffect, useContext} from 'react'
 import { Navbar } from '../../components/Navbar'
 import './BeatPage.css'
 
+import {Link, useHistory} from 'react-router-dom'
+
 import {useAuth} from '../../contexts/AuthContext'
 import app from '../../firebase'
 import firebase from 'firebase/app'
@@ -32,6 +34,8 @@ const db = app.firestore()
 
 
 export default function BeatMaker() {
+    const history = useHistory();
+
     var windowLocation= window.location   
     var dirtyURL = windowLocation.pathname
     
@@ -265,11 +269,15 @@ export default function BeatMaker() {
     const [cartItems, setCartItems] = useContext(GlobalCartItems)
     console.log(cartItems)
 
+    // AÑADIDO AL CARRITO OVERLAY //
+    const [carro, setCarro] = useState("div-overlay-oculto")
+
 
     const AgregarCarrito = (items, price, image, beatURL) => {
     
         setCartItems(items, price, image, beatURL);
         console.log(cartItems)
+
     }
     
 ////////////////////////////////////////////////////////////////////////////
@@ -303,10 +311,21 @@ export default function BeatMaker() {
                         <h5><img src={metronomo2}/>{bpm}</h5><h5><img src={reloj}/>{fecha}</h5>
                     </div>
 
-                    <button onClick={() => AgregarCarrito({titulo, precio, URLbeat, imagen})}   className="boton-compra"><img className="carrito" src={carrito}/>{precio}€</button>
+                    <button onClick={() => {AgregarCarrito({titulo, precio, URLbeat, imagen});
+                                            setCarro("div-overlay-oculto-activo animate__animated animate__fadeIn")}}   className="boton-compra"><img className="carrito" src={carrito}/>{precio}€</button>
               
                 </div>
+
+                <div className={carro}>
+                    <div className="alerta-overlay">
+                        <h1>Has añadido "{titulo}" al carrito</h1>
+                        <button onClick={() =>{history.push("/carrito")}}>Ver Carrito</button>
+                        <button onClick={()=>{setCarro("div-overlay-oculto animate__animated animate__fadeOut")}}>Seguir ojeando</button>
+                    </div>
+                </div>
+
             </div>
+
             <div className="reproductor">
                 <Player /> 
             </div>

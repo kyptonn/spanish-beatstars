@@ -2,6 +2,7 @@ import React, {useContext, useState} from 'react'
 import {GlobalCartItems} from '../../contexts/CartContext'
 import './CheckOut.css'
 import {Link, useHistory} from 'react-router-dom'
+import { Navbar } from '../../components/Navbar';
 export default function CheckOut() {
 
 
@@ -26,7 +27,7 @@ export default function CheckOut() {
 
         if(cartItems.price == 0 || cartItems.precio == undefined){
             return(
-                <h1>No tienes nada en el carrito</h1>
+                <h1 className="no-tienes-nada">No tienes nada en el carrito</h1>
             )
         }else{
             return (
@@ -36,7 +37,7 @@ export default function CheckOut() {
                             <h1 className="titulo-beat">{cartItems.titulo}</h1>
                             <h1 className="precio-beat">{cartItems.precio}€</h1>
                             <div className="boton-eliminar">
-                                <button onClick={() => EliminarDelCarrito()}>Eliminar</button>
+                                <button className="eliminar-btn" onClick={() => EliminarDelCarrito()}>Eliminar</button>
                             </div>
                         </div>
                     </>
@@ -66,6 +67,7 @@ export default function CheckOut() {
 
     return (
         <div className="contenedor-superior">
+            <Navbar/>
             <h1 className="tutilo-carrito">Carrito</h1>
 
         
@@ -80,6 +82,7 @@ export default function CheckOut() {
 
             ))}
 
+           
 
             
         </div>

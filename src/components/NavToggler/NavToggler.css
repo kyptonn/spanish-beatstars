@@ -1,0 +1,97 @@
+.contenedor-general-navtoggler{
+    position:absolute;
+    display:flex;
+    padding-top:50px;
+    color:white;
+}
+
+
+/* Hamburger */
+.ham-toggler-div{
+    margin-left:25px;
+    margin-top:7px;
+    color:rgb(171, 171, 171);
+    z-index: 5;
+}
+
+.buscador-inicio-nav{
+    margin-top:2px;
+    margin-left:18px;
+    
+}
+
+.buscador-inicio-nav .form-control{
+    color:White;
+    padding-top:3px;
+    padding-bottom:3px;
+    padding-right:60px;
+    border-radius: 20px;
+    background-color: #383838;
+    border-color: #383838;
+}
+.buscador-inicio-nav .input-group-text{
+    color:white;
+    border-radius: 20px;
+    background-color: #383838;
+    border-color: transparent;
+}
+
+
+
+
+
+.div-oculto-toggler{
+    position: absolute;
+    display:none;
+   
+    width: 100vw;
+    height: 360px;
+    background-color: rgb(29, 29, 29);
+    z-index:6;
+}
+
+
+.div-oculto-toggler .links{
+    display:grid;
+    float:left;
+    margin-left:20px;
+    margin-top:60px;
+}
+
+
+
+
+.div-oculto-toggler-activo{
+    position: absolute;
+    display:block;
+   
+    width: 100vw;
+    height: 360px;
+    background-color: rgb(29, 29, 29);
+    z-index:6;
+}
+
+
+.div-oculto-toggler-activo .links{
+    display:grid;
+    float:left;
+    margin-left:20px;
+    margin-top:40px;
+}
+
+
+
+.links h2{
+    
+    margin-top:-10px;
+    margin-bottom: 1px;
+}
+.links h3{
+    font-size: 20px;
+}
+
+.links .cruz{
+    position: absolute;
+    right:200px;
+    top:38px;
+}

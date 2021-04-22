@@ -1,6 +1,6 @@
 .tutilo-carrito{
     color:white;
-    padding-top:70px;
+    padding-top:100px;
 }
 .contenedor-superior{
     display: grid;
@@ -25,13 +25,35 @@
 .boton-eliminar{
     display:flex;
     justify-content: center;
+    
+}
+.eliminar-btn{
+    border-radius: 10px;
+    background-color: transparent;
+    color:White;
+    border:solid;
+    border-width: 1px;
+    margin-bottom: 20px;
 }
 
 
+.no-tienes-nada{
+    font-size: 20px;
+    color:rgb(82, 82, 82);
+    margin-top:20px;
+    margin-bottom: 30px;
+}
 
 
 .boton-volver{
     text-decoration: none;
+    font-size: 20px;
+    background-color: red;
+    color:white;
+    font-weight: 500;
+    padding-left:20px;
+    padding-right:20px;
+    border-radius: 20px;
 }
 
 
@@ -47,5 +69,6 @@
     width: 200px;
     height: 35px;
     font-weight: 600;
-    background-color: rgb(186, 37, 37);
+    border:transparent;
+    background-color: rgb(255, 0, 0);
 }
