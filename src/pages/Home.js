@@ -1,7 +1,8 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {useAuth} from '../contexts/AuthContext'
-import {Link, useHistory} from 'react-router-dom'
-import './Home.css'
+import {Link, useHistory} from 'react-router-dom';
+import './Home.css';
+import '../components/CajaBeats.css';
 import { Navbar } from '../components/Navbar'
 import CajaBeats from '../components/CajaBeats';
 import { Beatmakers } from '../components/Beatmakers';
@@ -10,7 +11,6 @@ import { Footer } from '../components/Footer';
 
 import firebase, { db, auth } from '../firebase'
 
-import '../components/CajaBeats.css'
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
@@ -23,7 +23,7 @@ import SwiperCore, { Autoplay } from 'swiper'
 import 'swiper/swiper-bundle.css';
 import {Player } from '../components/AudioPlayer';
 import { GlobalStateContext } from '../contexts/GlobalState';
-import { GlobalSongContext} from '../contexts/CurrentPlaying'
+import { GlobalSongContext} from '../contexts/CurrentPlaying';
 
 
 import play from '../components/circuloplay.png'
@@ -131,16 +131,20 @@ export function Home(props) {
                                                 <p>{spell.name}</p> 
                                             </div>
 
-                                     <a href={`/beat/${spell.identificador}`}>
-                                            <img className="imagen-fondo-beats"src={spell.imagenURL}/>
-                                            
-                                            <div className="info-oculta">
-                                                <p>{spell.beatUrl}</p> 
-                                            </div>
-                                           
-                                            
-                                            
-                                        </a>
+
+
+                                            <Link to={`/beat/${spell.identificador}`}>          
+                                            {/*  <a href={`/beat/${spell.identificador}`}> */}
+                                                <img className="imagen-fondo-beats"src={spell.imagenURL}/>
+                                                
+                                                <div className="info-oculta">
+                                                    <p>{spell.beatUrl}</p> 
+                                                </div>
+                                                
+                                                
+                                                
+                                            {/*    </a> */}
+                                            </Link> 
                                         </div>
                                         <h2 key={spell.name}>{spell.name}</h2>
                                         <h3>{spell.nombreUsuario}</h3>
@@ -152,9 +156,11 @@ export function Home(props) {
               </Swiper>   
             </div>
 
-
-
-           
+            <Link to="/all-beats">    
+            <div className="ver-mas-div">                 
+            <a className="ver-mas">Ver todos los beats...</a>  
+            </div>                                           
+            </Link>
 
 
 

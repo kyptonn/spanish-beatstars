@@ -16,6 +16,8 @@
 .beatPortada{
     width: 150px;
     object-fit: cover;
+
+    border-radius: 20px;
 }
 .portada h2{
     margin-top:15px;

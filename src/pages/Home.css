@@ -35,7 +35,7 @@ body{
 
 /*    TOP BEATS SEMANA    */
 .top-beats-semana{
-    margin-left:15px;
+    margin-left:19px;
 }
 .top-beats-semana h2{
     font-family: "Poppins";
@@ -115,4 +115,22 @@ body{
     position: absolute; 
     margin-bottom: 0px;
     z-index: 9;
+}
+
+/* .swiper-slide {
+    margin-left:10px;
+} */
+
+
+.ver-mas{
+    font-size: 20px;
+    margin-top:10px;
+    margin-left:15px;
+    color:rgb(182, 180, 180);
+
+    text-decoration: none;
+}
+
+.ver-mas-div a{
+    text-decoration: none;
 }

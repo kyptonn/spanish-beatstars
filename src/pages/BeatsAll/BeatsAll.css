@@ -1,15 +1,15 @@
-.superior{
+.superior-all{
     padding-top: 80px;
 }
 
-.superior h1{
+.superior-all h1{
     font-family:'Bebas Neue';
     color:white;
     margin-left:15px;
     font-size: 35px;
 }
 
-.general{
+.general-all{
     display: grid;
     align-items: center;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -18,16 +18,18 @@
 }
 
 
-.beat-container{
+.beat-container-all{
     align-self: center;
     justify-self: center;
     width:160px;
 /*    display: inline-block; */
     margin:10px 0px 20px 0px;
+
    /* padding-left: 10px; */
+   
 }
 
-.caja-cuadrada{
+.caja-cuadrada-all{
     display: flex;
     width: 160px;
     height: 160px;
@@ -35,25 +37,53 @@
     background-position: center;
     background-size: cover;
 
+    justify-content: center;
+    align-items: center;
+
     margin-right:0px;
 
     border-radius:20px;
 }
 
-.imagen-fondo-beats{
+.imagen-fondo-beats-all{
+
     display:flex;
     width: 160px;
     height: 160px;
     object-fit:cover;
     border-radius:20px;
     z-index:2;
+    
+
 }
-.beat-container h4{
+.beat-container-all h4{
     color:#0b8aff;
     font-size: 16px;
-    margin-top:5px;
+    margin-top:9px;
     margin-bottom: 0px;
+    
 }
-.beat-container h2{
+.beat-container-all h2{
+    color:White;
+    font-size: 18px;
     margin-top:5px;
+}
+
+.beat-container-all h3{
+    color:rgb(103, 103, 103);
+    font-size: 18px;
+    margin-top:5px;
+}
+
+.reproductor-all{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    z-index:10;
+}
+
+.playerstop-all{
+    position: absolute; 
+    margin-bottom: 0px;
+    z-index: 9;
 }
