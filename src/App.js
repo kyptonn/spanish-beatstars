@@ -32,6 +32,7 @@ import CheckOut from './pages/CheckOut/CheckOut';
 import BeatMakerProfile from './pages/BeatMakerProfile/BeatMakerProfile';
 import OrderConfirmed from './pages/CheckOut/OrderConfirmed';
 import BeatsAdquiridos from './pages/BeatsAdquiridos/BeatsAdquiridos';
+import UpdateAvatar from './pages/UpdateAvatar/UpdateAvatar';
 
 
 
@@ -51,6 +52,7 @@ function App() {
           
           <PrivateRoute exact path="/panel" component={Dashboard}/>
           <PrivateRoute path="/update-profile" component={UpdateProfile}/>
+          <PrivateRoute path="/update-avatar" component={UpdateAvatar}/>
           <PrivateRoute path="/vender" component={Vender}/>
           <PrivateRoute path="/subir-beat" component={SubirBeat}/>
           <PrivateRoute path="/confirmacion" component={ConfirmacionSubido}/>

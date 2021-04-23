@@ -52,6 +52,7 @@ export const createUserDocument = async (user, additionalData) => {
         email,
         createdAt: new Date(),
         verificado: null,
+        avatar: null,
         usuario: user.uid
       });
     } catch (error) {

@@ -24,6 +24,8 @@ export default function Dashboard() {
 
     const [usuario, setUsuario] = useState("Usuario")
 
+    const [avatar, setAvatar] = useState("")
+
     useEffect(() => {
 
     },[usuario])
@@ -35,6 +37,8 @@ export default function Dashboard() {
         const nombreUsario=dataUsuario.displayName; //
         setUsuario(nombreUsario)// SE MUESTRA EL USUARIO
         console.log(nombreUsario)
+
+        setAvatar(userDocument.data().avatar)
 
         } 
         getUser()
@@ -61,7 +65,7 @@ export default function Dashboard() {
             <div className="container-general">
                 <div className="botones-generales">
                     
-                    <button className="perfil">Perfil</button>
+                <Link to={`/profile/${usuario}`}> <button className="perfil">Perfil</button></Link>
                 </div>
 
 
@@ -71,17 +75,27 @@ export default function Dashboard() {
                 <div className="datos-cuenta">
                     <strong>Email: </strong>{currentUser.email}
                     <Link to="/update-profile" className="actualizar">Actualizar<br></br></Link>
+
                     <br></br>
+
                     <strong>Contraseña: </strong> ****
-                    <Link to="/forgot-password" className="actualizar">Cambiar Contraseña<br></br></Link><br></br>
-
-                   <strong>Usuario: </strong>{usuario} {/* tenemos que lograr mostrar aki el nombre, cogiendo los datos de firestore DB (firebase) */}
+                    <Link to="/forgot-password" className="actualizar">Cambiar Contraseña<br></br></Link>
+                    
                     <br></br>
 
+                    <strong>Usuario: </strong>{usuario} {/* tenemos que lograr mostrar aki el nombre, cogiendo los datos de firestore DB (firebase) */}<br></br>
+
+                    <br></br>
+
+                    <strong>Avatar:</strong> <Link to="/update-avatar" className="actualizar">Cambiar Avatar</Link>
+
+                    <br></br>
+                    <img className="avatar-dashboard"src={avatar}></img>
+                    <br></br>
                     <button variant="link" className="cerrar-sesion" onClick={handleLogOut}>Cerrar Sesión</button>
                 </div>
                 <br></br>
-                <br></br>
+               
                 <div className="botones-generales">
                     <Link to="/beats-adquiridos"><button className="adquiridos">Beats Adquiridos</button></Link>
                     <Link to="/en-venta"><button className="en-venta">Beats en Venta</button></Link>
