@@ -15,6 +15,7 @@
 
 .beatPortada{
     width: 180px;
+    height: 180px;
     object-fit: cover;
 
     border-radius: 20px;
@@ -67,12 +68,14 @@
 .circuloplay{
     width: 40px;
 }
+.perfil-beatmaker h4{
+    color:rgb(94, 93, 93);
+}
 
-
-
-
-
-
+.perfil-beatmaker a{
+    color:rgb(237, 237, 237);
+    text-decoration: none;
+}
 
 
 

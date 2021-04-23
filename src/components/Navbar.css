@@ -20,6 +20,7 @@ nav{
 .logo{
     
     margin-left:5vw;
+    z-index:3;
     
 }
 
@@ -61,7 +62,12 @@ nav{
     letter-spacing: 2px;
     margin:5px;
 }
-
+.inicio-sesion-link{
+    display:block;
+}
+.inicio-sesion-link-logeado{
+    display:none;
+}
 
 
 

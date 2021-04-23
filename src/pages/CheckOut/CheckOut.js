@@ -1,9 +1,15 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useRef, useEffect} from 'react'
 import {GlobalCartItems} from '../../contexts/CartContext'
 import './CheckOut.css'
 import {Link, useHistory} from 'react-router-dom'
 import { Navbar } from '../../components/Navbar';
+import PayPal from '../../components/PayPal';
+
+
 export default function CheckOut() {
+    const [checkout, setCheckout] = useState(false)
+
+
 
 
     const history = useHistory();
@@ -11,8 +17,9 @@ export default function CheckOut() {
         history.goBack()
       }
 
-     /////// CARRITO //////////////////////////////////////////////////////////
-     const [cartItems, setCartItems] = useContext(GlobalCartItems)
+/////// CARRITO //////////////////////////////////////////////////////////
+    
+    const [cartItems, setCartItems] = useContext(GlobalCartItems)
      console.log(cartItems)
 
 
@@ -23,9 +30,9 @@ export default function CheckOut() {
 
     const MostrarCarrito = () => {
         
-        console.log(cartItems.price)
+        console.log(cartItems.precio)
 
-        if(cartItems.price == 0 || cartItems.precio == undefined){
+        if(cartItems.precio == 0 || cartItems.precio == undefined){
             return(
                 <h1 className="no-tienes-nada">No tienes nada en el carrito</h1>
             )
@@ -57,16 +64,28 @@ export default function CheckOut() {
             return (
                     <>
                         <h1 className="total-carrito">Total Carrito: {cartItems.precio}€</h1>
-                        <button  className="procesar-pago">Procesar Pago</button>
+                        {checkout ? (
+                            <PayPal />
+                        ):(
+                        <button onClick={() => {setCheckout(true)}} className="procesar-pago">Procesar Pago</button>
+                        )}
                     </>
             )
         }
     }
 
+
+
+
+
+
+
+
     
 
-    return (
-        <div className="contenedor-superior">
+return (
+    <div className="contenedor-superior">
+       
             <Navbar/>
             <h1 className="tutilo-carrito">Carrito</h1>
 
@@ -81,12 +100,13 @@ export default function CheckOut() {
 
 
             ))}
+         
 
-           
+       
 
-            
-        </div>
-    )
+        
+    </div>
+)
 }
 
 

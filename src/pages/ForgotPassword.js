@@ -54,7 +54,7 @@ export default function ForgotPassword() {
                         <button disabled={loading} type="submit" className="boton-sesion">Recuperar Contraseña</button>
 
                         <h6 className="pregunta">¿Aún no estás registrado? <Link to="/registro">Regístrate</Link></h6>
-                        <h6><Link to="/inicio-sesion">Login</Link></h6>
+                        <h6 className="pregunta"><Link to="/inicio-sesion">Login</Link></h6>
                     </div>
                 </form>
             </div>

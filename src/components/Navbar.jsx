@@ -1,14 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Navbar.css'
 import {Link} from 'react-router-dom'
 import logo from './logo-blanco.png'
-
+import firebase from '../firebase'
 
 export const Navbar = () => {
+    
+
+    // Mostrar/Ocultar botón "Inicio Sesión"
+    const user = firebase.auth().currentUser;
+
+    const [logeado, setLogeado] = useState()
+
+    useEffect(() =>{        
+        if(user){
+            setLogeado("inicio-sesion-link-logeado")
+        }else{
+            setLogeado("inicio-sesion-link")
+        }
+    },[])
+
+   
+    
+   
+   
      
     const [navLinkOpen, setNavLinkOpen] = useState(false)
     
-
     const cambiarEstado = () =>{
         setNavLinkOpen(!navLinkOpen)
     }
@@ -21,7 +39,7 @@ export const Navbar = () => {
 
                 
                 <ul className={'navlinks'}>
-                    <Link to='/inicio-sesion'><a>Iniciar Sesión</a></Link>
+                    <Link to='/inicio-sesion'><a className={logeado}>Iniciar Sesión</a></Link>
                    
                     {/* <li className="link"><a href="#">Home</a></li>*/}
                     <Link to='/subir-beat'><a>Subir</a></Link>

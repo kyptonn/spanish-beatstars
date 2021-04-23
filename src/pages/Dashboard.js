@@ -83,7 +83,7 @@ export default function Dashboard() {
                 <br></br>
                 <br></br>
                 <div className="botones-generales">
-                    <Link to="/en-venta"><button className="adquiridos">Beats Adquiridos</button></Link>
+                    <Link to="/beats-adquiridos"><button className="adquiridos">Beats Adquiridos</button></Link>
                     <Link to="/en-venta"><button className="en-venta">Beats en Venta</button></Link>
                    
                 </div>

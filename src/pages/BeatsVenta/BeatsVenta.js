@@ -30,48 +30,48 @@ export default function BeatsVenta() {
             <div className="container-general">
                 <h1>Beats en Venta</h1>
                 <table>
-               <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        
-                        <th>Estilo</th>
-                        <th>Nota</th>
-                        <th>Precio</th>
-                    </tr>
-               </thead>
-               
-               <tbody>
-                    <th>
-                        {spells.map(spell => (
-                            <ul key={spell.name}>{spell.name}</ul>
-                            ))}
-                    </th>
-
-                   
-
-                    <th>
-                        {spells.map(spell => (
-                        <ul key={spell.estilo}>{spell.estilo}</ul>
-                        ))}
-                    </th>
-
-                    <th>
-                        
-                        {spells.map(spell => (
-                        <ul key={spell.nota}>{spell.nota}</ul>
-                        ))}
-                    </th>
+                    <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                
+                                <th>Estilo</th>
+                                <th>Nota</th>
+                                <th>Precio</th>
+                            </tr>
+                    </thead>
                     
+                    <tbody>
+                            <th>
+                                {spells.map(spell => (
+                                    <ul key={spell.name}>{spell.name}</ul>
+                                    ))}
+                            </th>
 
-                    <th>
-                        {spells.map(spell => (
-                        <ul key={spell.precio}>{spell.precio}</ul>
-                        ))}
                         
-                    </th>
+
+                            <th>
+                                {spells.map(spell => (
+                                <ul key={spell.estilo}>{spell.estilo}</ul>
+                                ))}
+                            </th>
+
+                            <th>
+                                
+                                {spells.map(spell => (
+                                <ul key={spell.nota}>{spell.nota}</ul>
+                                ))}
+                            </th>
                             
-               </tbody>
-               </table>
+
+                            <th>
+                                {spells.map(spell => (
+                                <ul key={spell.precio}>{spell.precio}</ul>
+                                ))}
+                                
+                            </th>
+                                    
+                    </tbody>
+                </table>
 
 
 

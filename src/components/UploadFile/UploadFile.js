@@ -15,7 +15,7 @@ var crypto = require("crypto");
 
 
 const db = app.firestore()
-// USUARIO TEST H4MHGE0ALDM8MtDphNuuTpZUIH32 // COLECCION --> users/H4MHGE0ALDM8MtDphNuuTpZUIH32/beatsSubidos
+
 export function UploadFile() {
    
     

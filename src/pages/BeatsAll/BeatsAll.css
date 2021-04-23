@@ -65,14 +65,15 @@
 }
 .beat-container-all h2{
     color:White;
-    font-size: 18px;
+    font-size: 17px;
     margin-top:5px;
+    margin-bottom: 2px;
 }
 
 .beat-container-all h3{
     color:rgb(103, 103, 103);
-    font-size: 18px;
-    margin-top:5px;
+    font-size: 15px;
+    margin-top:2px;
 }
 
 .reproductor-all{

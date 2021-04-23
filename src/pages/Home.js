@@ -42,7 +42,7 @@ var searchIcon = <i class="fas fa-search"></i>;
 
 export function Home(props) {
 
-    /////// REPRODUCTOR //////////////////////////////////////////////////////
+/////// REPRODUCTOR //////////////////////////////////////////////////////
     const [currentSong, setCurrentSong] = useContext(GlobalSongContext)
     const {currentPlaying} = currentSong;
     useEffect(() => {
@@ -57,6 +57,7 @@ export function Home(props) {
 
     const [estadoReproductor, setEstadoReproductor] = useState(play)
 ////////////////////////////////////////////////////////////////////////
+
 
 
     const datosArray = []
@@ -105,6 +106,10 @@ export function Home(props) {
                     <input type="text" class="form-control" placeholder="Prueba con 'Trap Beat' o 'Reggaeton Beat'" aria-label="Username" aria-describedby="basic-addon1"></input>
                 </div>
            </div>
+
+
+
+{/* ////////////////////////////////////////////////////////////////////////////// */}
 
             {/*  TOP BEATS DE LA SEMANA   */}      
            <div className="top-beats-semana">
@@ -165,6 +170,7 @@ export function Home(props) {
             </Link>
 
 
+{/* ////////////////////////////////////////////////////////////////////////////// */}
 
             {/*  TOP BEATMAKERS   */}  
             <div className="top-beatmakers">
@@ -185,7 +191,7 @@ export function Home(props) {
                 {/*   SWIPER  */} 
             </div>
 
-
+{/* ////////////////////////////////////////////////////////////////////////////// */}
 
             {/*  EXPLORAR POR GÉNEROS   */}  
             <div className="generos">

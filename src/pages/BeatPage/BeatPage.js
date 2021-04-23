@@ -305,11 +305,14 @@ export default function BeatMaker() {
                         <p>{URLbeat}</p>
                     </div>
 
+                    <div className="perfil-beatmaker">
+                        <h4>Beat by <Link to={`/profile/${beatmaker}`}>{beatmaker}</Link></h4>
+                    </div>
 
-                    <h4>Beat by {beatmaker}</h4>
                     <div className="tempo">
                         <h5><img src={metronomo2}/>{bpm}</h5><h5><img src={reloj}/>{fecha}</h5>
                     </div>
+
 
                     <button onClick={() => {AgregarCarrito({titulo, precio, URLbeat, imagen});
                                             setCarro("div-overlay-oculto-activo animate__animated animate__fadeIn")}}   className="boton-compra"><img className="carrito" src={carrito}/>{precio}€</button>
