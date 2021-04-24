@@ -8,6 +8,7 @@ export default function OrderConfirmed() {
             <img src={logo}></img>
             <h2>¡Gracias por tu compra!</h2>
             <h3>Tus Beats adquiridos, aparecerán en tu Panel, en la sección de "Beats Adquiridos"</h3>
+           
             <h3>De todas formas, te hemos enviado un mail con el link para descargar el/los Beat/s</h3>
 
             <div className="botones-confirmed">

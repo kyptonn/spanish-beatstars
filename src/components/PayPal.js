@@ -1,16 +1,37 @@
-import React, { useEffect, useRef, useContext } from 'react'
+import React, { useEffect, useRef, useContext, useState } from 'react'
 import {useHistory} from 'react-router-dom'
 import {GlobalCartItems} from '../contexts/CartContext'
 import app from '../firebase'
 import {useAuth} from '../contexts/AuthContext'
+
+//Emailjs
+/* import{ init } from 'emailjs-com';
+import emailjs from 'emailjs-com'
+
+init("user_po6jjIuX0P5WAN6oiuwQb");
+ */
+
+
+import emailjs from 'emailjs-com';
+
+
 
 
 const db = app.firestore()
 
 
 
+
+
+
 export default function PayPal() {
     let history = useHistory();
+
+
+   
+    
+
+
 
     // UID DEL USUARIO
     const {currentUser} = useAuth()
@@ -22,7 +43,10 @@ export default function PayPal() {
     console.log(cartItems)
 
 
+
+    //// PAYPAL
     const paypal = useRef()
+
 
     useEffect(() => {
         window.paypal.Buttons({
@@ -41,6 +65,7 @@ export default function PayPal() {
                 })
             },
             onApprove: async(data, actions) => {
+
                 const order = await actions.order.capture()
                 console.log(order)
                 // Lo que quieras hacer despues de la compra (deberemos imprimir los datos de "order" a la base de datos)
@@ -64,6 +89,30 @@ export default function PayPal() {
                     
                 }) 
 
+                /// EMAIL //////////////////////////////////////////////
+
+               /*  function sendMail(params) { */
+                    var templateParams= {
+                        to_email:`${order.payer.email_address}`,
+                        to_name:`${order.payer.name.given_name}`,
+                        nombre_beat:`${cartItems.titulo}`,
+                        precio_beat:`${cartItems.precio}€`,
+                        transaccion_id:`${order.id}`,
+                        transaccion_fecha:`${order.create_time}`,
+                        descarga_url:`${cartItems.URLbeat}`
+                    };
+                    
+                    emailjs.send('service_ox3ok2x','template_z3pkeuk',templateParams, 'user_po6jjIuX0P5WAN6oiuwQb')
+                    .then((res) => {
+                        console.log("success", res.status);
+                    });
+               /*  } */
+
+
+
+                ////////////////////////////////////////////////////////
+               
+
 
                 await history.push("/orden-confirmada"); 
 
@@ -73,31 +122,6 @@ export default function PayPal() {
             }
         }).render(paypal.current)
     }, [])
-
-
-
-
-    //Escritura Database
-    
-   
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -27,6 +27,33 @@
     z-index:2;
 }
 
+
+
+.avatar-perfil{
+    width: 150px;
+    height: 150px;
+    border:transparent;
+    background-color: black;
+}
+
+
+.imagen-avatar-perfil{
+    width: 150px;
+    height: 150px;
+    border-radius: 1002px 1002px 1002px 1002px;
+    border:solid;
+    border-color:black;
+    object-fit:cover;
+    background-color: black;
+}
+
+
+
+
+
+
+
+
 .stats p{
     color:White;
     font-size: 15px;
@@ -67,6 +94,7 @@
 .beats tbody ul{
     color:white;
     padding:0;
+    margin-right:-20px;
     
 }
 

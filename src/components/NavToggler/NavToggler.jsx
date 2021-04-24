@@ -5,7 +5,7 @@ import './NavToggler.css'
 export default function NavToggler() {
 
     var [toggler, setToggler] = useState("div-oculto-toggler")
-    
+    var [overlay, setOverlay] = useState("overlay-nav-toggler")
     
 
 
@@ -13,7 +13,8 @@ export default function NavToggler() {
         <div className="contenedor-general-navtoggler">
 
             <div className="ham-toggler-div" >
-                <i onClick={() => {setToggler("div-oculto-toggler-activo animate__animated animate__slideInUp")}} class="fas fa-bars fa-lg"></i>
+                <i onClick={() => {setToggler("div-oculto-toggler-activo animate__animated animate__slideInUp");
+                                    setOverlay("overlay-nav-toggler-activo")}} class="fas fa-bars fa-lg"></i>
             </div>
 
             <div className="buscador-inicio-nav">
@@ -23,11 +24,18 @@ export default function NavToggler() {
                 </div>
            </div>
 
-           <div className={`${toggler} `}>{/* animate__animated animate__slideInUp */}
+
+
+        
+
+            <div className={overlay}></div>
+            <div className={`${toggler} `}>{/* animate__animated animate__slideInUp */}
                 <div className="links">
                     <h2>MENU</h2>
-                    <i onClick={() => { setToggler("div-oculto-toggler animate__animated animate__slideOutUp")}} class="cruz far fa-times-circle fa-lg"></i>
+                    <i onClick={() => { setToggler("div-oculto-toggler animate__animated animate__slideOutUp");
+                                        setOverlay("overlay-nav-toggler")}} class="cruz far fa-times-circle fa-lg"></i>
                     <hr></hr>
+                    <br></br>
                     <h3>Beats</h3>
                     <h3>Beat Makers</h3>
                     <h3>Publica tus Beats</h3>
@@ -35,7 +43,7 @@ export default function NavToggler() {
                     <h3>Contacto</h3>
                 </div>
 
-           </div>
+            </div>
 
         </div>
     )

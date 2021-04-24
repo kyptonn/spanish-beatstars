@@ -7,10 +7,12 @@ const CLIENT_SECRET = '29ZCSpkrfYEpN_6YM05qRw-m'
 const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
 const REFRESH_TOKEN = '1//04Ntn92q79qgRCgYIARAAGAQSNwF-L9IrwfQNSXEW3vDFTIun-Xtxp6a_4_Rf6GN8jG2IfaiUqsmpugpkO-L4Z7PdysEhMHcp6Rc'
 
+
+
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
 oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN})
 
-async function sendMail() {
+export const sendMail = async() => {
 
     try{
         const accessToken = await oAuth2Client.getAccessToken()
@@ -29,10 +31,10 @@ async function sendMail() {
 
         const mailOptions = {
             from: 'BEATS PLAY <beatsplaysoporte@gmail.com>',
-            to: 'victor.oteroroldan@gmail.com',
-            subject: "Hello from gmail using API",
-            text: 'Hello from gmail using API',
-            html: `<h1>Hello from gmail using API</h1>`
+            to: `victor.oteroroldan@gmail.com`,
+            subject: `Confirmación de pedido (XXX)`,
+            text: `Hola XXX, tu compra ha sido exitosa! A continuación tendrás el link de Descarga del Beat. <br>XXX</br> `,
+            html: `${texto}`
         };
 
         const result = await transport.sendMail(mailOptions)

@@ -1,15 +1,11 @@
 .container-main{
-    
-   
     height: 100px;
     width: 100%;
 
-    margin-top: 50px;
+    margin-top: 10px;
     
    align-items: center;
    text-align: center;
-
-
 
 }
 .container-main hr{

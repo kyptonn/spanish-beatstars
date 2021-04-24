@@ -50,6 +50,8 @@ export default function BeatMakerProfile() {
     console.log(cleanURL)
 
     const [spells, setSpells] = React.useState([])
+    const [datosUsuario, setDatosUsuario] = useState()
+    const [avatarUsuario, setAvatarUsuario] = useState()
 
 
     /// AQUI HAY QUE HACER UN QUERY, PARA SOLO COGER LOS BEATS CON EL NOMBRE DE USUARIO DE LA URL (EJEMPLO http://localhost:3000/profile/Svciogotbeats)
@@ -66,6 +68,31 @@ export default function BeatMakerProfile() {
     },[])
 
 
+    React.useEffect(()=> {
+        const fetchData = async () => {
+            const db = firebase.firestore()
+            const data = await db.collection("users").where('displayName','==',cleanURL).get()
+           
+            // AVATAR 
+            var avatar = data.docs.map(doc => doc.data())[0].avatar;
+            setAvatarUsuario(avatar)
+
+
+
+            // FECHA
+            var segundos = data.docs.map(doc => doc.data())[0].createdAt.seconds
+            var milisegundos = segundos * 1000
+            var d = new Date(milisegundos);
+            var fecha = d.toLocaleDateString();
+            setDatosUsuario(fecha)
+
+           /*  console.log(d.toLocaleDateString()) */
+
+        }
+        fetchData()
+    },[])
+
+
 
 
 
@@ -76,17 +103,23 @@ export default function BeatMakerProfile() {
             <NavToggler/>
 
             <div className="container-profile-master">
-                    <img className="imagen-profile" src={defaultProfile4}/>
+                    {/* <img className="imagen-profile" src={defaultProfile4}/>  */}{/* imagen de fondo */}
                 <div className="stats">
                     <h2>{cleanURL}</h2>
 
+                    <div className="avatar-perfil">
+                        <img className="imagen-avatar-perfil" src={avatarUsuario}></img>
+                    </div>
+
+
+
                     <div className="espacio-entre">
-                        <p>Desde: 01/01/2019</p>
+                        <p>Desde: {datosUsuario} </p>
                         
                     </div>
 
                     
-                        <p>Estilos: Trap, Drill </p>
+                       {/*  <p>Estilos: Trap, Drill </p> */}
                         <p>Redes <i class="fab fa-instagram"></i> &#160;<i class="fab fa-spotify"></i> &#160;<i class="fab fa-twitter"></i></p>
                 </div>
 
