@@ -51,12 +51,13 @@ export default function BeatsAll() {
 
     return (
 
-        <div>
+        <div className="contenedor-general-beatsall">
             <Navbar />
 
             <div className="superior-all">
                 <h1>Top Beats</h1>
                 <div className="general-all">
+                    
                     {spells.map(spell => (
                     
 
@@ -70,8 +71,8 @@ export default function BeatsAll() {
 
 
                                     <div className="info-oculta">
-                                        <p>{spell.beatUrl}</p>
-                                        <p>{spell.name}</p> 
+                                        <p>{spell.beatUrl}</p>                              
+                                        <p>{spell.name}</p>                                     
                                     </div>
 
 
@@ -88,8 +89,11 @@ export default function BeatsAll() {
                                 </div>
 
                                 <h4>{spell.precio}€</h4>
+
                                 <h2 key={spell.name}>{spell.name}</h2>
-                                <h3>{spell.nombreUsuario}</h3>
+                                <Link to={`/profile/${spell.nombreUsuario}`}>
+                                    <h3>{spell.nombreUsuario}</h3>
+                                </Link>
                             </div>
                         
                     ))}

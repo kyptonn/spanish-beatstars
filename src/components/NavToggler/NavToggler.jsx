@@ -1,6 +1,10 @@
 import React, {useState} from 'react'
 import './NavToggler.css'
 
+// MEDIA QUERY
+import { useMediaQuery } from 'react-responsive';
+import MediaQuery from 'react-responsive';
+
 
 export default function NavToggler() {
 
@@ -10,7 +14,9 @@ export default function NavToggler() {
 
 
     return (
+
         <div className="contenedor-general-navtoggler">
+            <MediaQuery maxWidth={1371}>
 
             <div className="ham-toggler-div" >
                 <i onClick={() => {setToggler("div-oculto-toggler-activo animate__animated animate__slideInUp");
@@ -44,7 +50,7 @@ export default function NavToggler() {
                 </div>
 
             </div>
-
+            </MediaQuery>
         </div>
     )
 }

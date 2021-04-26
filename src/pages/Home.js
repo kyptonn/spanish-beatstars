@@ -16,6 +16,8 @@ import 'react-h5-audio-player/lib/styles.css';
 
 // Foto Portada
 import portada from './portada.jpeg'
+import portada1 from './portada1.jpg'
+import portada2 from './portada2.jpg'
 
 
 // import Swiper JS
@@ -34,6 +36,9 @@ import { Switch } from 'react-router';
 import NavToggler from '../components/NavToggler/NavToggler';
 
 
+// MEDIA QUERY
+import { useMediaQuery } from 'react-responsive';
+import MediaQuery from 'react-responsive';
 
 
 var searchIcon = <i class="fas fa-search"></i>;
@@ -42,7 +47,20 @@ var searchIcon = <i class="fas fa-search"></i>;
 
 
 
+
 export function Home(props) {
+
+
+
+
+
+
+
+
+
+
+
+  
 
 /////// REPRODUCTOR //////////////////////////////////////////////////////
     const [currentSong, setCurrentSong] = useContext(GlobalSongContext)
@@ -57,16 +75,15 @@ export function Home(props) {
         console.log('el globalstate se ha actualizado')
     }, [globalState])
 
-    const [estadoReproductor, setEstadoReproductor] = useState(play)
+
 ////////////////////////////////////////////////////////////////////////
 
-
-
+ 
     const datosArray = []
     const [datosGenerales, setDatosGenerales] = useState([])
+////////////////////////////////////////////////////////////////////////
 
-    
-
+    // TOP BEATS
     const [spells, setSpells] = useState([])
 
     useEffect(()=> {
@@ -80,12 +97,58 @@ export function Home(props) {
         fetchData()
     },[])
 
-    console.log(spells)
+    /* console.log(spells) */
+////////////////////////////////////////////////////////////////////////
+
+    // TOP BEATMAKERS
+    const [beatmakers, setBeatmakers] = useState([])
+
+    useEffect(()=> {
+        const fetchData = async () => {
+            const db = firebase.firestore()
+            const data = await db.collection("users").where('beatmaker','==','yes').get()
+            setBeatmakers(data.docs.map(doc => doc.data()))
+           
+
+        }
+        fetchData()
+    },[])
+    console.log(beatmakers)
+
+
+////////////////////////////////////////////////////////////////////////
+
+const [estadoReproductor, setEstadoReproductor] = useState({
+    activeObject: null,
+    objects: spells
+})
+
+
+function toggleActive(index) {
+    setEstadoReproductor({...estadoReproductor, activeObject: estadoReproductor.objects[index] });
+}
+
+function toggleActiveStyles(index) {
+    if(estadoReproductor.objects[index] === estadoReproductor.activeObject) {
+        return pause;
+    } else {
+        return play;
+    }
+}
 
 
 
-   /* console.log(datosArray)  */
-/* console.log(datosGenerales) */
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* console.log(beats) */
@@ -97,8 +160,17 @@ export function Home(props) {
             <NavToggler />
            
             <div className="imagen-inicio">
-               <img width="100%" opacity="" src={portada} alt="hola"></img>
-                
+
+                <MediaQuery maxWidth={1370}>
+                    <img width="100%" opacity="" src={portada} alt="hola"></img>
+                </MediaQuery>
+
+                <MediaQuery minWidth={1371}>
+                    <img width="100%" opacity="" src={portada2} alt="hola"></img>
+                </MediaQuery>
+
+
+
                 <h2>#1 MARKETPLACE DE HABLA HISPANA</h2>
             </div>
 
@@ -117,24 +189,38 @@ export function Home(props) {
            <div className="top-beats-semana">
                {/* {DatosGlobales()} */}
                 <h2>Top Beats de la Semana</h2>
-                {/*  SWIPER   */}      
+                {/*  SWIPER   */}   
+
+                <MediaQuery maxWidth={580}>   
                  <Swiper
                 spaceBetween={0}
+                
                 slidesPerView={1.8}       
                 >
+                
  
-                            {spells.map(spell => (
+                            {spells.map((spell, index) => (
                                 <SwiperSlide>
                                     
                                     <div onClick={(e) => console.log(e)} className="beat-container">    
                                         
                                         <div className="caja-cuadrada">
                                             
-                                           <img src={estadoReproductor}   
-                                            onClick={(e) => {console.log(e.target.nextElementSibling.children[1].innerText);
+                                           <img /* src={estadoReproductor}  */  
+                                           key={index}
+
+                                            onClick={(e) => {
                                             setGlobalState({beatActivo:e.target.nextElementSibling.children[0].innerText});
                                             setCurrentSong({currentPlaying:e.target.nextElementSibling.children[1].innerText});                            
-                                            }} className="playerstop" /> 
+                                            }}
+                                        
+                                        
+                                            
+                                                                   
+                                     
+                                            src={toggleActiveStyles(index)}
+                                            
+                                            className="playerstop" /> 
                                             <div className="info-oculta">
                                                 <p>{spell.beatUrl}</p>
                                                 <p>{spell.name}</p> 
@@ -163,13 +249,260 @@ export function Home(props) {
                             ))}
 
               </Swiper>   
+              </MediaQuery>
+            
+                <MediaQuery minWidth={581} maxWidth={800}>   
+                    <Swiper
+                    spaceBetween={2}
+                    
+                    slidesPerView={3}       
+                    >
+                    
+    
+                                {spells.map((spell, index) => (
+                                    <SwiperSlide>
+                                        
+                                        <div onClick={(e) => console.log(e)} className="beat-container">    
+                                            
+                                            <div className="caja-cuadrada">
+                                                
+                                            <img /* src={estadoReproductor}  */  
+                                            key={index}
+
+                                                onClick={(e) => {
+                                                setGlobalState({beatActivo:e.target.nextElementSibling.children[0].innerText});
+                                                setCurrentSong({currentPlaying:e.target.nextElementSibling.children[1].innerText});                            
+                                                }}
+                                            
+                                            
+                                                
+                                                                    
+                                        
+                                                src={toggleActiveStyles(index)}
+                                                
+                                                className="playerstop" /> 
+                                                <div className="info-oculta">
+                                                    <p>{spell.beatUrl}</p>
+                                                    <p>{spell.name}</p> 
+                                                </div>
+
+
+
+                                                <Link to={`/beat/${spell.identificador}`}>          
+                                                {/*  <a href={`/beat/${spell.identificador}`}> */}
+                                                    <img className="imagen-fondo-beats"src={spell.imagenURL}/>
+                                                    
+                                                    <div className="info-oculta">
+                                                        <p>{spell.beatUrl}</p> 
+                                                    </div>
+                                                    
+                                                    
+                                                    
+                                                {/*    </a> */}
+                                                </Link> 
+                                            </div>
+                                            <h2 key={spell.name}>{spell.name}</h2>
+                                            <h3>{spell.nombreUsuario}</h3>
+                                        </div>
+                                    
+                                    </SwiperSlide>
+                                ))}
+
+                </Swiper>   
+                </MediaQuery>
+               
+                <MediaQuery minWidth={800} maxWidth={1080}>   
+                 <Swiper
+                spaceBetween={0}
+                
+                slidesPerView={4.2}       
+                >
+                
+ 
+                            {spells.map((spell, index) => (
+                                <SwiperSlide>
+                                    
+                                    <div onClick={(e) => console.log(e)} className="beat-container">    
+                                        
+                                        <div className="caja-cuadrada">
+                                            
+                                           <img /* src={estadoReproductor}  */  
+                                           key={index}
+
+                                            onClick={(e) => {
+                                            setGlobalState({beatActivo:e.target.nextElementSibling.children[0].innerText});
+                                            setCurrentSong({currentPlaying:e.target.nextElementSibling.children[1].innerText});                            
+                                            }}
+                                        
+                                        
+                                            
+                                                                   
+                                     
+                                            src={toggleActiveStyles(index)}
+                                            
+                                            className="playerstop" /> 
+                                            <div className="info-oculta">
+                                                <p>{spell.beatUrl}</p>
+                                                <p>{spell.name}</p> 
+                                            </div>
+
+
+
+                                            <Link to={`/beat/${spell.identificador}`}>          
+                                            {/*  <a href={`/beat/${spell.identificador}`}> */}
+                                                <img className="imagen-fondo-beats"src={spell.imagenURL}/>
+                                                
+                                                <div className="info-oculta">
+                                                    <p>{spell.beatUrl}</p> 
+                                                </div>
+                                                
+                                                
+                                                
+                                            {/*    </a> */}
+                                            </Link> 
+                                        </div>
+                                        <h2 key={spell.name}>{spell.name}</h2>
+                                        <h3>{spell.nombreUsuario}</h3>
+                                    </div>
+                                   
+                                </SwiperSlide>
+                            ))}
+
+              </Swiper>   
+              </MediaQuery>
+            
+                <MediaQuery minWidth={1081} maxWidth={1370} >   
+                    <Swiper
+                    spaceBetween={0}
+                    
+                    slidesPerView={5}       
+                    >
+                    
+    
+                                {spells.map((spell, index) => (
+                                    <SwiperSlide>
+                                        
+                                        <div onClick={(e) => console.log(e)} className="beat-container">    
+                                            
+                                            <div className="caja-cuadrada">
+                                                
+                                            <img /* src={estadoReproductor}  */  
+                                            key={index}
+
+                                                onClick={(e) => {
+                                                setGlobalState({beatActivo:e.target.nextElementSibling.children[0].innerText});
+                                                setCurrentSong({currentPlaying:e.target.nextElementSibling.children[1].innerText});                            
+                                                }}
+                                            
+                                            
+                                                
+                                                                    
+                                        
+                                                src={toggleActiveStyles(index)}
+                                                
+                                                className="playerstop" /> 
+                                                <div className="info-oculta">
+                                                    <p>{spell.beatUrl}</p>
+                                                    <p>{spell.name}</p> 
+                                                </div>
+
+
+
+                                                <Link to={`/beat/${spell.identificador}`}>          
+                                                {/*  <a href={`/beat/${spell.identificador}`}> */}
+                                                    <img className="imagen-fondo-beats"src={spell.imagenURL}/>
+                                                    
+                                                    <div className="info-oculta">
+                                                        <p>{spell.beatUrl}</p> 
+                                                    </div>
+                                                    
+                                                    
+                                                    
+                                                {/*    </a> */}
+                                                </Link> 
+                                            </div>
+                                            <h2 key={spell.name}>{spell.name}</h2>
+                                            <h3>{spell.nombreUsuario}</h3>
+                                        </div>
+                                    
+                                    </SwiperSlide>
+                                ))}
+
+                </Swiper>   
+                </MediaQuery>            
+            
+                <MediaQuery minWidth={1371} maxWidth={3000} >   
+                    <Swiper
+                    spaceBetween={0}
+                    
+                    slidesPerView={3.9}       
+                    >
+                    
+    
+                                {spells.map((spell, index) => (
+                                    <SwiperSlide>
+                                        
+                                        <div onClick={(e) => console.log(e)} className="beat-container">    
+                                            
+                                            <div className="caja-cuadrada">
+                                                
+                                            <img /* src={estadoReproductor}  */  
+                                            key={index}
+
+                                                onClick={(e) => {
+                                                setGlobalState({beatActivo:e.target.nextElementSibling.children[0].innerText});
+                                                setCurrentSong({currentPlaying:e.target.nextElementSibling.children[1].innerText});                            
+                                                }}
+                                            
+                                            
+                                                
+                                                                    
+                                        
+                                                src={toggleActiveStyles(index)}
+                                                
+                                                className="playerstop" /> 
+                                                <div className="info-oculta">
+                                                    <p>{spell.beatUrl}</p>
+                                                    <p>{spell.name}</p> 
+                                                </div>
+
+
+
+                                                <Link to={`/beat/${spell.identificador}`}>          
+                                                {/*  <a href={`/beat/${spell.identificador}`}> */}
+                                                    <img className="imagen-fondo-beats"src={spell.imagenURL}/>
+                                                    
+                                                    <div className="info-oculta">
+                                                        <p>{spell.beatUrl}</p> 
+                                                    </div>
+                                                    
+                                                    
+                                                    
+                                                {/*    </a> */}
+                                                </Link> 
+                                            </div>
+                                            <h2 key={spell.name}>{spell.name}</h2>
+                                            <h3>{spell.nombreUsuario}</h3>
+                                        </div>
+                                    
+                                    </SwiperSlide>
+                                ))}
+
+                </Swiper>   
+            
+            
+            <div className="ver-mas-div">    
+                <Link to="/all-beats">    
+                            
+                    <a className="ver-mas">Ver todos los beats...</a>  
+                                                   
+                </Link>
+            </div> 
+                </MediaQuery>            
+            
+            
             </div>
 
-            <Link to="/all-beats">    
-            <div className="ver-mas-div">                 
-            <a className="ver-mas">Ver todos los beats...</a>  
-            </div>                                           
-            </Link>
 
 
 {/* ////////////////////////////////////////////////////////////////////////////// */}
@@ -177,52 +510,188 @@ export function Home(props) {
             {/*  TOP BEATMAKERS   */}  
             <div className="top-beatmakers">
                 <h2>Mejores Beatmakers</h2>
-                {/*  SWIPER   */}      
+                {/*  SWIPER   */}    
+
+
+                <MediaQuery maxWidth={580}>  
                 <Swiper
                 spaceBetween={0}
                 slidesPerView={1.8}       
                 >
-                    <SwiperSlide><Beatmakers/></SwiperSlide>
-                    <SwiperSlide><Beatmakers/></SwiperSlide>
-                    <SwiperSlide><Beatmakers/></SwiperSlide>
-                    <SwiperSlide><Beatmakers/></SwiperSlide>
-                    <SwiperSlide><Beatmakers/></SwiperSlide>
-                    <SwiperSlide><Beatmakers/></SwiperSlide>
-                    <SwiperSlide><Beatmakers/></SwiperSlide>
+                    {beatmakers.map((beatmaker, index) => (
+                        <SwiperSlide>
+
+
+                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
+                                    <Link to={`/profile/${beatmaker.displayName}`}>  
+                                        
+                                        <div className="caja-cuadrada-beatmaker">          
+                                            <img className="imagen-fondo-beatmakers"src={beatmaker.avatar}/>  
+                                        </div> 
+
+                                        <h3>{beatmaker.displayName}</h3>   
+
+                                    </Link>
+                                </div>
+
+
+
+                        </SwiperSlide>
+
+                    ))}
+
                 </Swiper>
-                {/*   SWIPER  */} 
+                </MediaQuery>
+
+                <MediaQuery minWidth={581} maxWidth={800}>  
+                <Swiper
+                spaceBetween={2}
+                slidesPerView={3}       
+                >
+                    {beatmakers.map((beatmaker, index) => (
+                        <SwiperSlide>
+
+
+                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
+                                    <Link to={`/profile/${beatmaker.displayName}`}>  
+                                        
+                                        <div className="caja-cuadrada-beatmaker">          
+                                            <img className="imagen-fondo-beatmakers"src={beatmaker.avatar}/>  
+                                        </div> 
+
+                                        <h3>{beatmaker.displayName}</h3>   
+
+                                    </Link>
+                                </div>
+
+
+
+                        </SwiperSlide>
+
+                    ))}
+
+                </Swiper>
+                </MediaQuery>
+
+                <MediaQuery minWidth={800} maxWidth={1080}>  
+                <Swiper
+                spaceBetween={0}
+                slidesPerView={4.2}       
+                >
+                    {beatmakers.map((beatmaker, index) => (
+                        <SwiperSlide>
+
+
+                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
+                                    <Link to={`/profile/${beatmaker.displayName}`}>  
+                                        
+                                        <div className="caja-cuadrada-beatmaker">          
+                                            <img className="imagen-fondo-beatmakers"src={beatmaker.avatar}/>  
+                                        </div> 
+
+                                        <h3>{beatmaker.displayName}</h3>   
+
+                                    </Link>
+                                </div>
+
+
+
+                        </SwiperSlide>
+
+                    ))}
+
+                </Swiper>
+                </MediaQuery>
+
+                <MediaQuery minWidth={1081} maxWidth={1370}>  
+                <Swiper
+                spaceBetween={0}
+                slidesPerView={5}       
+                >
+                    {beatmakers.map((beatmaker, index) => (
+                        <SwiperSlide>
+
+
+                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
+                                    <Link to={`/profile/${beatmaker.displayName}`}>  
+                                        
+                                        <div className="caja-cuadrada-beatmaker">          
+                                            <img className="imagen-fondo-beatmakers"src={beatmaker.avatar}/>  
+                                        </div> 
+
+                                        <h3>{beatmaker.displayName}</h3>   
+
+                                    </Link>
+                                </div>
+
+
+
+                        </SwiperSlide>
+
+                    ))}
+
+                </Swiper>
+                </MediaQuery>
+
+                <MediaQuery minWidth={1371} maxWidth={3000}>  
+                <Swiper
+                spaceBetween={0}
+                slidesPerView={3.9}       
+                >
+                    {beatmakers.map((beatmaker, index) => (
+                        <SwiperSlide>
+
+
+                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
+                                    <Link to={`/profile/${beatmaker.displayName}`}>  
+                                        
+                                        <div className="caja-cuadrada-beatmaker">          
+                                            <img className="imagen-fondo-beatmakers"src={beatmaker.avatar}/>  
+                                        </div> 
+
+                                        <h3>{beatmaker.displayName}</h3>   
+
+                                    </Link>
+                                </div>
+
+
+
+                        </SwiperSlide>
+
+                    ))}
+
+                </Swiper>
+                </MediaQuery>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
             </div>
 
 {/* ////////////////////////////////////////////////////////////////////////////// */}
+                       
+            
 
-            {/*  EXPLORAR POR GÉNEROS   */}  
-            <div className="generos">
-                <h2>Búsqueda por Géneros</h2>
-                {/*  SWIPER   */}      
-                <Swiper
-                spaceBetween={0}
-                slidesPerView={1.8}       
-                >
-
-                    <SwiperSlide><Generos/></SwiperSlide>
-                    <SwiperSlide><Generos/></SwiperSlide>
-                    <SwiperSlide><Generos/></SwiperSlide>
-                    <SwiperSlide><Generos/></SwiperSlide>
-                    <SwiperSlide><Generos/></SwiperSlide>
-                    <SwiperSlide><Generos/></SwiperSlide>
-                    <SwiperSlide><Generos/></SwiperSlide>
-                    <SwiperSlide><Generos/></SwiperSlide>
-
-                </Swiper>
-                {/*   SWIPER  */} 
+            <div className="reproductor">
+                <Player /> 
             </div>
 
-        <div className="reproductor">
-            <Player /> 
-        </div>
 
-
-          {/*   <Footer/> */}
+            {/*   <Footer/> */}
+            <div className="footer-provisional"></div>
         </div>
     )
 };

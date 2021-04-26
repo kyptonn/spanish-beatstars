@@ -31,6 +31,9 @@ body{
 }
 
 
+
+
+
 /*    TOP BEATS SEMANA    */
 .top-beats-semana{
     margin-left:19px;
@@ -40,9 +43,6 @@ body{
     font-size: 19px;
     font-weight: 600;
     color:white;
-
-   
-    
 }
 
 
@@ -63,7 +63,64 @@ body{
 
 
 
+
+
 /*   TOP BEATMAKERS   */
+.imagen-fondo-beatmakers{
+    display:flex;
+    width: 180px;
+    height: 180px;
+    object-fit:cover;
+    border-radius:100px;
+    
+    z-index:2;
+
+}
+.caja-cuadrada-beatmaker{
+    display: grid;
+    width: 180px;
+    height: 180px;
+    /* background-image:url("https://d1csarkz8obe9u.cloudfront.net/posterpreviews/fancy-best-trap-album-cover-design-template-61c1d25232ab02f25e5da5e0da40e965_screen.jpg?ts=1589589429");  */
+    
+    background-position: center;
+    background-size: cover;
+
+    margin-right:0px;
+    
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+
+    border-radius:20px;
+}
+.beatmaker-container{
+    width: 180px;
+    display: grid;
+    justify-content: center;
+}
+
+
+
+.beatmaker-container h3{
+    color:rgb(252, 252, 252);
+
+    margin-top:5px;
+    font-size: 15px;
+
+    text-align: center;
+
+    text-decoration: none;
+  
+}
+
+.beatmaker-container a{
+    text-decoration: none;
+}
+
+
+
+
 .top-beatmakers{
     margin-top:50px;
     margin-left:15px;
@@ -75,6 +132,18 @@ body{
     font-weight: 600;
     color:white;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* BUSQUEDA POR GÉNEROS */
 .generos{
@@ -105,9 +174,6 @@ body{
     
     justify-content: center;
     align-items:center;
-
-   
-
 }
 .playerstop{
     position: absolute; 
@@ -123,7 +189,7 @@ body{
 .ver-mas{
     font-size: 20px;
     margin-top:10px;
-    margin-left:15px;
+    margin-left:0px;
     color:rgb(182, 180, 180);
 
     text-decoration: none;
@@ -132,3 +198,94 @@ body{
 .ver-mas-div a{
     text-decoration: none;
 }
+
+.footer-provisional{
+    padding-top: 100px;
+}
+
+
+
+/* PANTALLA GRANDE */
+@media  (min-width:1371px){ 
+
+    .imagen-inicio img{
+        position: absolute;
+        height: 800px;
+        top:-50px;
+        margin-top: 110px;
+        z-index:0;
+    }
+    
+
+
+    .imagen-inicio h2{
+        font-family:'Bebas Neue';
+        position: flex;
+        font-size: 45px;
+        width: 100%;
+        top:340px;
+        color:white;
+    
+        margin-left: 20%;
+       /*  text-align: center; */
+        text-justify: auto;
+    
+        z-index:5;
+    }
+    .buscador-inicio{
+        margin-top:300px;
+       
+    }
+
+
+    .top-beats-semana{
+       
+        justify-content: center;
+        justify-items: center;
+        margin-left: 20%;
+        margin-right: 20%;
+      
+    }
+
+
+    .ver-mas-div .ver-mas{
+        position: relative;
+        z-index: 2;
+    }
+  
+
+ 
+
+    .top-beatmakers{
+        justify-content: center;
+        justify-items: center;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+    .top-beatmakers h2{
+        position: relative;
+        z-index:2;
+    }
+
+
+    .generos{
+        justify-content: center;
+        justify-items: center;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+
+    .buscador-inicio{
+        justify-content: center;
+        justify-items: center;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+
+
+
+
+
+
+}
+

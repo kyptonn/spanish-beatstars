@@ -4,6 +4,9 @@ import {Link} from 'react-router-dom'
 import logo from './logo-blanco.png'
 import firebase from '../firebase'
 
+import MediaQuery from 'react-responsive';
+
+
 export const Navbar = () => {
     
 
@@ -32,7 +35,10 @@ export const Navbar = () => {
     }
 
     return (
-       <nav>
+       <nav className="nav-general-div">
+
+            <MediaQuery maxWidth={1370}>
+
                 <div className="logo">
                 <Link to="/"><img src={logo} alt="Logo"/></Link>
                 </div>
@@ -54,9 +60,36 @@ export const Navbar = () => {
 
                 
                 </ul>
+            </MediaQuery>
+
+            <MediaQuery minWidth={1370}>
+
+                <div className="logo">
+                <Link to="/"><img src={logo} alt="Logo"/></Link>
+                </div>
+
                 
+                <ul className={'navlinks'}>
+                    <Link to='/inicio-sesion'><a className={logeado}>Iniciar Sesión</a></Link>
+                   
+                    {/* <li className="link"><a href="#">Home</a></li>*/}
+                    <Link to='/all-beats'><a>Beats</a></Link>
+                    <Link to='/'><a>BeatMakers</a></Link>
+                    <Link to='/subir-beat'><a>Subir</a></Link>
+                    <Link to='/panel'><a>Panel</a></Link>
+                    {/* <li className="link"><a href="#">Services</a></li> */}
+                    <Link to='/carrito'><i class="fas fa-shopping-cart"></i></Link>
+                    {/* <li className="link"><a href="#">Contact Us</a></li> */}
+                    <div onClick={cambiarEstado} className="hamburger-toggle2">
+                    
+                </div>
+
+
+                
+                </ul>
+            </MediaQuery>
                 
 
-            </nav>
+        </nav>
     )
 }

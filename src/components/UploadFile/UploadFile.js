@@ -147,6 +147,11 @@ export function UploadFile() {
 
 
 
+        // ACTUALIZAMOS EL CAMPO DE "beatmaker" a "yes"
+        db.collection('users/').doc(usuarioID).update({
+            beatmaker: "yes"
+            
+        }) 
 
 
         // // METODO A - SUBIMOS ARCHIVO A DB CREANDO UNA SUBCOLECCION
