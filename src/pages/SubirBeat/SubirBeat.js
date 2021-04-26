@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import firebase from 'firebase';
 
 /* import Dots from 'react-activity/lib/Dots';
@@ -11,10 +11,77 @@ import { Footer } from '../../components/Footer';
 import './SubirBeat.css'
 import { Link } from 'react-router-dom';
 
+import {useAuth} from '../../contexts/AuthContext'
+
+
+
+
 
 export default function SubirBeat() {
-    return (
+
+    // UID DEL USUARIO
+    const {currentUser} = useAuth()
+    const usuarioID =currentUser.uid 
+
+    const [datosUsuario, setDatosUsuario] = useState()
+
+    const [confirmado, setConfirmado] = useState("div-terminos-oculto")
+
+
+  /*   useEffect(() => { */
+    
+        const getUser = async () => {
+            const userDocument = await firebase.firestore().collection(`users`).doc(usuarioID).get();
+            const dataUsuario = userDocument.data();
+            console.log(dataUsuario)
+
+
+           /*  setDatosUsuario(userDocument.data()) */
+
+            console.log(dataUsuario.terminosConfirmados)
+
+            if(dataUsuario.terminosConfirmados == "no"){
+                setConfirmado("div-terminos-activado")
+                }else if (dataUsuario.terminosConfirmados == "yes"){
+                    setConfirmado("div-terminos-oculto")
+                } 
+          
+        } 
+        getUser()
+
+
+  /*   },[]) */
+
+
+    console.log(datosUsuario)
+    console.log(confirmado)
+
+    const aceptarTerminos = async() => {
+        const userDocument = await firebase.firestore().collection(`users`).doc(usuarioID).update({
+            terminosConfirmados: "yes"
+        });
+        const dataUsuario = userDocument.data();
+
+
+    }
+
+
+
+
+
+    return ( 
         <div>
+            <div className={confirmado}>
+                <div className="mensaje-terminos">
+                    <h2>Términos y Condiciones</h2>
+                    <h3>Antes de subir tu primer Beat, necesitas confirmar nuestros términos y condiciones</h3>
+                   
+                    <button className="aceptar-terminos" onClick={() => aceptarTerminos()}>Aceptar Términos</button>
+                    <br></br>
+                    <Link to="/subir-beat/terminos">Ver Términos y Condiciones</Link>
+                </div>
+
+            </div>
             <Navbar />
             <div className="container-maestro">
              <h2>Selecciona tu Beat</h2>

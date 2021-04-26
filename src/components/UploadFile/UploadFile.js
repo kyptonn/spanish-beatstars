@@ -154,6 +154,9 @@ export function UploadFile() {
         }) 
 
 
+
+      
+
         // // METODO A - SUBIMOS ARCHIVO A DB CREANDO UNA SUBCOLECCION
         db.collection('users/').doc(usuarioID).collection('beatsSubidos').doc(beatNombre).set({
             name: beatNombre,

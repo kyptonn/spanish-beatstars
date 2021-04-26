@@ -54,7 +54,8 @@ export const createUserDocument = async (user, additionalData) => {
         verificado: null,
         avatar: null,
         usuario: user.uid,
-        beatmaker: "no"
+        beatmaker: "no",
+        terminosConfirmados:"no"
       });
     } catch (error) {
       console.log('Error in creating user', error);
