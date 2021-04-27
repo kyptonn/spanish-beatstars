@@ -11,7 +11,7 @@
 
 .general-all{
     display: grid;
-    align-items: center;
+    /* align-items: center; */
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 
     font-family: "Poppins";
@@ -108,23 +108,29 @@
     }
 
     .superior-all{
+       /*  display:inline-table; */
+       /*  display:inline; */
         padding-top: 150px;
-        justify-self: center;
-        justify-content: center;
-        width: 60%;
+        
+        justify-content: right;
+        justify-self: right;
+      
+        width: 70%;
     }
 
     .superior-all h1{
         font-family:'Bebas Neue';
         color:white;
-        margin-left:5%;
+        margin-left: 180px;
         font-size: 35px;
+        
     }
 
     .beat-container-all{
-        align-self: center;
-        justify-self: center;
+        align-self: left;
+        justify-self: left;
         width:160px;
+        float:left;
     /*    display: inline-block; */
         margin:10px 0px 20px 0px;
     
@@ -160,14 +166,36 @@
     
     }
 
+
+
+
+
     .general-all{
-        display: grid;
-        align-items: center;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    
+       
+        display:grid;
         font-family: "Poppins";
+        
+       
+        justify-content: left;
+        justify-self: left;
+        
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    
+        margin-left: 180px;
     }
 
+
+    /* BUSCADOR Y FILTROS */
+    .filtros-buscador{
+        position: absolute;
+        width: 300px;
+        height: 550px;
+        background-color: rgb(26, 26, 26);
+        top:210px;
+        left:50px;
+
+        border-radius: 10px;
+    }
 
 
 

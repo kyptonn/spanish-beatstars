@@ -9,6 +9,7 @@ import { Beatmakers } from '../components/Beatmakers';
 import { Generos } from '../components/Generos';
 import { Footer } from '../components/Footer';
 
+import estilos from '../database/Estilos/Estilos.json';
 import firebase, { db, auth } from '../firebase'
 
 import AudioPlayer from 'react-h5-audio-player';
@@ -22,13 +23,17 @@ import portada2 from './portada2.jpg'
 
 // import Swiper JS
 import {Swiper,SwiperSlide} from 'swiper/react';
-import SwiperCore, { Autoplay } from 'swiper'
+import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper'
 // import Swiper styles
 import 'swiper/swiper-bundle.css';
+
+
+
+
 import {Player } from '../components/AudioPlayer';
 import { GlobalStateContext } from '../contexts/GlobalState';
 import { GlobalSongContext} from '../contexts/CurrentPlaying';
-
+import { GlobalSearchContext} from '../contexts/SearchContext';
 
 import play from '../components/circuloplay.png'
 import pause from '../components/circulostop.png'
@@ -41,26 +46,15 @@ import { useMediaQuery } from 'react-responsive';
 import MediaQuery from 'react-responsive';
 
 
+SwiperCore.use([Navigation])
 var searchIcon = <i class="fas fa-search"></i>;
 
 
 
 
-
-
 export function Home(props) {
-
-
-
-
-
-
-
-
-
-
-
-  
+    
+    const {history} = props;
 
 /////// REPRODUCTOR //////////////////////////////////////////////////////
     const [currentSong, setCurrentSong] = useContext(GlobalSongContext)
@@ -81,6 +75,8 @@ export function Home(props) {
  
     const datosArray = []
     const [datosGenerales, setDatosGenerales] = useState([])
+
+
 ////////////////////////////////////////////////////////////////////////
 
     // TOP BEATS
@@ -119,9 +115,18 @@ export function Home(props) {
 ////////////////////////////////////////////////////////////////////////
 
 const [estadoReproductor, setEstadoReproductor] = useState({
-    activeObject: null,
+    toggleActive: null,
     objects: spells
 })
+
+const [imagenReproductor, setImagenReproductor] = useState(play)
+
+
+const cambiarReproductor = (index) => {
+   
+   
+    
+}
 
 
 function toggleActive(index) {
@@ -136,23 +141,34 @@ function toggleActiveStyles(index) {
     }
 }
 
+// BUSCADOR //////////////////////////////////////////////
+
+const [preBuscador, setPreBuscador] = useState()
+const [buscador, setBuscador] = useContext(GlobalSearchContext);
+
+
+/*  console.log(buscador) */
+
+const getDatos= async () => {
+    const datosFiltrados = preBuscador.split(" ");
+    console.log(datosFiltrados)
+
+    setBuscador(datosFiltrados);
+
+    await history.push(`/search?q=${datosFiltrados}`);
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-/* console.log(beats) */
-   const {history} = props;
+  
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
@@ -174,13 +190,14 @@ function toggleActiveStyles(index) {
                 <h2>#1 MARKETPLACE DE HABLA HISPANA</h2>
             </div>
 
+            <form onSubmit={e => {e.preventDefault();getDatos()}}>
             <div className="buscador-inicio">
                 <div class="input-group mb-3 p-3">
                     <span class="input-group-text" id="basic-addon1">{searchIcon}</span>
-                    <input type="text" class="form-control" placeholder="Prueba con 'Trap Beat' o 'Reggaeton Beat'" aria-label="Username" aria-describedby="basic-addon1"></input>
+                    <input type="text" onChange={e => setPreBuscador(e.target.value)} class="form-control" placeholder="Prueba con 'Trap Beat' o 'Reggaeton Beat'" aria-label="Username" aria-describedby="basic-addon1"></input>
                 </div>
-           </div>
-
+            </div>
+            </form>
 
 
 {/* ////////////////////////////////////////////////////////////////////////////// */}
@@ -218,7 +235,7 @@ function toggleActiveStyles(index) {
                                             
                                                                    
                                      
-                                            src={toggleActiveStyles(index)}
+                                            src={imagenReproductor}
                                             
                                             className="playerstop" /> 
                                             <div className="info-oculta">
@@ -338,7 +355,7 @@ function toggleActiveStyles(index) {
                                             
                                                                    
                                      
-                                            src={toggleActiveStyles(index)}
+                                            src={imagenReproductor}
                                             
                                             className="playerstop" /> 
                                             <div className="info-oculta">
@@ -398,7 +415,7 @@ function toggleActiveStyles(index) {
                                                 
                                                                     
                                         
-                                                src={toggleActiveStyles(index)}
+                                                src={imagenReproductor}
                                                 
                                                 className="playerstop" /> 
                                                 <div className="info-oculta">
@@ -435,13 +452,18 @@ function toggleActiveStyles(index) {
                     <Swiper
                     spaceBetween={0}
                     
-                    slidesPerView={3.9}       
+                    slidesPerView={3.9}
+
+                          
                     >
                     
     
                                 {spells.map((spell, index) => (
                                     <SwiperSlide>
                                         
+                                        <div className="separador-swiper">
+
+
                                         <div onClick={(e) => console.log(e)} className="beat-container">    
                                             
                                             <div className="caja-cuadrada">
@@ -452,13 +474,15 @@ function toggleActiveStyles(index) {
                                                 onClick={(e) => {
                                                 setGlobalState({beatActivo:e.target.nextElementSibling.children[0].innerText});
                                                 setCurrentSong({currentPlaying:e.target.nextElementSibling.children[1].innerText});                            
-                                                }}
-                                            
+                                                console.log(index);
+
+                                            }}
+                                               
                                             
                                                 
                                                                     
                                         
-                                                src={toggleActiveStyles(index)}
+                                                src={imagenReproductor}
                                                 
                                                 className="playerstop" /> 
                                                 <div className="info-oculta">
@@ -482,9 +506,11 @@ function toggleActiveStyles(index) {
                                                 </Link> 
                                             </div>
                                             <h2 key={spell.name}>{spell.name}</h2>
-                                            <h3>{spell.nombreUsuario}</h3>
+                                            <div className="link-profile">
+                                            <h3><Link to={`/profile/${spell.nombreUsuario}`}>{spell.nombreUsuario}</Link></h3>
+                                            </div>
                                         </div>
-                                    
+                                        </div>
                                     </SwiperSlide>
                                 ))}
 
@@ -677,12 +703,186 @@ function toggleActiveStyles(index) {
 
 
 
-
+            
                 
             </div>
 
 {/* ////////////////////////////////////////////////////////////////////////////// */}
-                       
+          
+            {/*  TOP BEATMAKERS   */}  
+            <div className="top-beatmakers">
+                <h2>Mejores Beatmakers</h2>
+                {/*  SWIPER   */}    
+
+
+                <MediaQuery maxWidth={580}>  
+                <Swiper
+                spaceBetween={0}
+                slidesPerView={1.8}       
+                >
+                    {estilos.map((estilo, index) => (
+                        <SwiperSlide>
+
+
+                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
+                                    <Link to={`/estilos/${estilo.nombre}`}>  
+                                        
+                                        <div className="caja-cuadrada-beatmaker">          
+                                            <img className="imagen-fondo-beatmakers"src={estilo.imagen}/>  
+                                        </div> 
+
+                                        <h3>{estilo.nombre}</h3>   
+
+                                    </Link>
+                                </div>
+
+
+
+                        </SwiperSlide>
+
+                    ))}
+
+                </Swiper>
+                </MediaQuery>
+
+                <MediaQuery minWidth={581} maxWidth={800}>  
+                <Swiper
+                spaceBetween={2}
+                slidesPerView={3}       
+                >
+                    {estilos.map((estilo, index) => (
+                        <SwiperSlide>
+
+
+                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
+                                    <Link to={`/estilos/${estilo.nombre}`}>  
+                                        
+                                        <div className="caja-cuadrada-beatmaker">          
+                                            <img className="imagen-fondo-beatmakers"src={estilo.imagen}/>  
+                                        </div> 
+
+                                        <h3>{estilo.nombre}</h3>   
+
+                                    </Link>
+                                </div>
+
+
+
+                        </SwiperSlide>
+
+                    ))}
+
+                </Swiper>
+                </MediaQuery>
+
+                <MediaQuery minWidth={800} maxWidth={1080}>  
+                <Swiper
+                spaceBetween={0}
+                slidesPerView={4.2}       
+                >
+                    {estilos.map((estilo, index) => (
+                        <SwiperSlide>
+
+
+                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
+                                    <Link to={`/estilos/${estilo.nombre}`}>  
+                                        
+                                        <div className="caja-cuadrada-beatmaker">          
+                                            <img className="imagen-fondo-beatmakers"src={estilo.imagen}/>  
+                                        </div> 
+
+                                        <h3>{estilo.nombre}</h3>   
+
+                                    </Link>
+                                </div>
+
+
+
+                        </SwiperSlide>
+
+                    ))}
+
+                </Swiper>
+                </MediaQuery>
+
+                <MediaQuery minWidth={1081} maxWidth={1370}>  
+                <Swiper
+                spaceBetween={0}
+                slidesPerView={5}       
+                >
+                    {estilos.map((estilo, index) => (
+                        <SwiperSlide>
+
+
+                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
+                                    <Link to={`/estilos/${estilo.nombre}`}>  
+                                        
+                                        <div className="caja-cuadrada-beatmaker">          
+                                            <img className="imagen-fondo-beatmakers"src={estilo.imagen}/>  
+                                        </div> 
+
+                                        <h3>{estilo.nombre}</h3>   
+
+                                    </Link>
+                                </div>
+
+
+
+                        </SwiperSlide>
+
+                    ))}
+
+                </Swiper>
+                </MediaQuery>
+
+                <MediaQuery minWidth={1371} maxWidth={3000}>  
+                <Swiper
+                spaceBetween={0}
+                slidesPerView={3.9}       
+                >
+                    {estilos.map((estilo, index) => (
+                        <SwiperSlide>
+
+
+                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
+                                    <Link to={`/estilos/${estilo.nombre}`}>  
+                                        
+                                        <div className="caja-cuadrada-beatmaker">          
+                                            <img className="imagen-fondo-beatmakers"src={estilo.imagen}/>  
+                                        </div> 
+
+                                        <h3>{estilo.nombre}</h3>   
+
+                                    </Link>
+                                </div>
+
+
+
+                        </SwiperSlide>
+
+                    ))}
+
+                </Swiper>
+                </MediaQuery>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+            </div>
+
             
 
             <div className="reproductor">

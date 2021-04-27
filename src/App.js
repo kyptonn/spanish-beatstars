@@ -33,6 +33,7 @@ import BeatMakerProfile from './pages/BeatMakerProfile/BeatMakerProfile';
 import OrderConfirmed from './pages/CheckOut/OrderConfirmed';
 import BeatsAdquiridos from './pages/BeatsAdquiridos/BeatsAdquiridos';
 import UpdateAvatar from './pages/UpdateAvatar/UpdateAvatar';
+import Search from './pages/Search/Search';
 
 
 
@@ -59,6 +60,8 @@ function App() {
           <PrivateRoute path="/en-venta" component={BeatsVenta}/>
 
 
+          <Route path="/search" component={Search}/>
+          <Route exact path="/search/:id" render={props => <Search {...props} />}/>
 
           <Route path="/all-beats" component={BeatsAll}/>
 

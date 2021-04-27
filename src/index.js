@@ -6,12 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import GlobalState from './contexts/GlobalState';
 import CurrentPlaying from './contexts/CurrentPlaying';
 import GlobalCartItems from './contexts/CartContext';
+import  GlobalSearchContext  from './contexts/SearchContext';
 
 const INDEX = () => (
 <CurrentPlaying>
 <GlobalCartItems>
 <GlobalState>
+<GlobalSearchContext>
 <App />
+</GlobalSearchContext>
 </GlobalState>
 </GlobalCartItems>
 </CurrentPlaying> );

@@ -28,7 +28,6 @@ export default function SubirBeat() {
     const [confirmado, setConfirmado] = useState("div-terminos-oculto")
 
 
-  /*   useEffect(() => { */
     
         const getUser = async () => {
             const userDocument = await firebase.firestore().collection(`users`).doc(usuarioID).get();
@@ -50,7 +49,7 @@ export default function SubirBeat() {
         getUser()
 
 
-  /*   },[]) */
+
 
 
     console.log(datosUsuario)

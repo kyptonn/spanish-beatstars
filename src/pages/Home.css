@@ -200,7 +200,14 @@ body{
 }
 
 .footer-provisional{
-    padding-top: 100px;
+    padding-top: 120px;
+}
+
+
+
+.link-profile a{
+    text-decoration: none;
+    color:gray;
 }
 
 
@@ -237,7 +244,7 @@ body{
        
     }
 
-
+  
     .top-beats-semana{
        
         justify-content: center;

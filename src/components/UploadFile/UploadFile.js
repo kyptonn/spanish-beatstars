@@ -129,6 +129,11 @@ export function UploadFile() {
     const iden = Math.floor(Math.random() * 1000000) + 10;
    /*  const iden = crypto.randomBytes(20); */
 
+    // Array para tags
+    const [tagsBeat, setTagsBeat] = useState();
+
+
+
     const onSubmit = async (e) => {
         e.preventDefault()
         const beatNombre = e.target.beatNombre.value;
@@ -136,7 +141,9 @@ export function UploadFile() {
         const bpm = e.target.bpm.value;
         const nota = e.target.nota.value;
         const precio = e.target.precio.value;
-        
+
+        const separarComas = tagsBeat.split(",");
+        const tags = separarComas;
         
 
 
@@ -170,6 +177,7 @@ export function UploadFile() {
             usuario: usuarioID,
             nombreUsuario: usuario,
             ventas: 0, // este campo se actualizará (.update) cuando alguien compre.
+            etiquetas: tags,
             fecha: new Date()
             
         }) 
@@ -191,6 +199,7 @@ export function UploadFile() {
             identificador: iden,
             usuario: usuarioID,
             nombreUsuario: usuario,
+            etiquetas: tags,
             fecha: new Date()
             
         }, {merge:true}) 
@@ -334,6 +343,9 @@ export function UploadFile() {
                     <label for="beatNombre">Precio (€)</label> <br/>
                     <input className="nombreBeat" type="text" name="precio" placeholder="Precio"/>
 
+                    <br></br>
+                    <label for="beatNombre">Tags (separar por comas, solo minúsuculas)</label> <br/>
+                    <input onChange={event => setTagsBeat(event.target.value)} className="nombreBeat" type="text" name="tags" placeholder="Tags"/>
                     <br></br>
 
 

@@ -1,7 +1,7 @@
 import React , {useState, useEffect, useContext} from 'react'
 import firebase, { db, auth } from '../../firebase'
 import play from '../../components/circuloplay.png'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 
 import './BeatsAll.css'
 import { Navbar } from '../../components/Navbar'
@@ -9,26 +9,30 @@ import { Navbar } from '../../components/Navbar'
 import {Player } from '../../components/AudioPlayer';
 import { GlobalStateContext } from '../../contexts/GlobalState';
 import { GlobalSongContext} from '../../contexts/CurrentPlaying';
+import { GlobalSearchContext} from '../../contexts/SearchContext';
 
-
+var searchIcon = <i class="fas fa-search"></i>;
 
 
 export default function BeatsAll() {
- /////// REPRODUCTOR //////////////////////////////////////////////////////
- const [currentSong, setCurrentSong] = useContext(GlobalSongContext)
- const {currentPlaying} = currentSong;
- useEffect(() => {
-     console.log('la base actual se ha actualizado')
- }, [currentSong])
+    let history = useHistory();
+    /////// REPRODUCTOR //////////////////////////////////////////////////////
+    const [currentSong, setCurrentSong] = useContext(GlobalSongContext)
+    const {currentPlaying} = currentSong;
+    useEffect(() => {
+        console.log('la base actual se ha actualizado')
+    }, [currentSong])
 
- const [globalState, setGlobalState] = useContext(GlobalStateContext)
- const {beatActivo} = globalState;
- useEffect(() =>{
-     console.log('el globalstate se ha actualizado')
- }, [globalState])
+    const [globalState, setGlobalState] = useContext(GlobalStateContext)
+    const {beatActivo} = globalState;
+    useEffect(() =>{
+        console.log('el globalstate se ha actualizado')
+    }, [globalState])
 
- const [estadoReproductor, setEstadoReproductor] = useState(play)
-////////////////////////////////////////////////////////////////////////////
+    const [estadoReproductor, setEstadoReproductor] = useState(play)
+    ////////////////////////////////////////////////////////////////////////////
+
+
 
 
     const [spells, setSpells] = useState([])
@@ -43,7 +47,37 @@ export default function BeatsAll() {
 
     },[])
 
-    console.log(spells)
+
+
+
+
+
+
+// BUSCADOR
+
+    const [preBuscador, setPreBuscador] = useState()
+    const [buscador, setBuscador] = useContext(GlobalSearchContext);
+
+
+   /*  console.log(buscador) */
+
+    const getDatos= async () => {
+        const datosFiltrados = preBuscador.split(" ");
+        console.log(datosFiltrados)
+
+        setBuscador(datosFiltrados);
+
+        await history.push(`/search?q=${datosFiltrados}`);
+    }
+
+
+
+
+
+
+
+///////////
+
 
 
 
@@ -53,6 +87,17 @@ export default function BeatsAll() {
 
         <div className="contenedor-general-beatsall">
             <Navbar />
+
+
+            <form onSubmit={e => {e.preventDefault();getDatos()}}>
+            <div className="filtros-buscador">
+                <div class="input-group mb-3 p-3">
+                    <span class="input-group-text" id="basic-addon1">{searchIcon}</span>
+                    <input type="text" onChange={e => setPreBuscador(e.target.value)} class="form-control" placeholder="Prueba con 'Trap Beat' o 'Reggaeton Beat'" aria-label="Username" aria-describedby="basic-addon1"></input>
+                </div>
+            </div>
+            </form>
+
 
             <div className="superior-all">
                 <h1>Top Beats</h1>
