@@ -4,18 +4,34 @@ import play from '../../components/circuloplay.png'
 import {Link, useHistory} from 'react-router-dom'
 
 import '../BeatsAll/BeatsAll.css'
+import './Search.css'
 import { Navbar } from '../../components/Navbar'
 
 import {Player } from '../../components/AudioPlayer';
 import { GlobalStateContext } from '../../contexts/GlobalState';
 import { GlobalSongContext} from '../../contexts/CurrentPlaying';
 import { GlobalSearchContext} from '../../contexts/SearchContext';
+import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
+import Accordion from 'react-bootstrap/Accordion'
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+
+import dropUp from './expand-arrow.png'
+import dropDown from './expand-button.png'
+
+
+// MEDIA QUERY
+import { useMediaQuery } from 'react-responsive';
+import MediaQuery from 'react-responsive';
+
 
 var searchIcon = <i class="fas fa-search"></i>;
 
 
+
 export default function Search() {
     let history = useHistory();
+    const decoratedOnClick = useAccordionToggle();
     /////// REPRODUCTOR //////////////////////////////////////////////////////
     const [currentSong, setCurrentSong] = useContext(GlobalSongContext)
     const {currentPlaying} = currentSong;
@@ -45,13 +61,16 @@ export default function Search() {
 
 
     const getDatos= async () => {
-        const datosFiltrados = preBuscador.split(" ");
+        const datosBruto = preBuscador.toLowerCase();
+        const datosFiltrados = datosBruto.split(" ");
         console.log(datosFiltrados)
 
         setBuscador(datosFiltrados);
+        console.log(datosFiltrados)
+
+        await history.push(`/search?q=${datosFiltrados}`);
 
     }
-
 
  ////////////////////////////////////////////////////////////////////////////
 
@@ -69,15 +88,61 @@ export default function Search() {
      }
      fetchData()
 
- },[])
+ },[buscador])
+
+
+///////////////////////////////////////////////////////
+
+const [acordeon1, setAcordeon1] = useState("panel1")
+const [acordeon2, setAcordeon2] = useState("panel2")
+const [acordeon3, setAcordeon3] = useState("panel3")
+
+
+
+const toggleAcordeon1 = () => {
+        if(acordeon1 == "panel1"){
+            setAcordeon1("panel1-activo")
+        }else if(acordeon1 == "panel1-activo") {
+            setAcordeon1("panel1")
+        }
+}
+const toggleAcordeon2 = () => {
+    if(acordeon2 == "panel2"){
+        setAcordeon2("panel2-activo")
+    }else if(acordeon2 == "panel2-activo") {
+        setAcordeon2("panel2")
+    }
+}
+const toggleAcordeon3 = () => {
+    if(acordeon3 == "panel3"){
+        setAcordeon3("panel3-activo")
+    }else if(acordeon3 == "panel3-activo") {
+        setAcordeon3("panel3")
+    }
+}
+
+///////////////////////////////////////////////////////
+
+
+    const [filtros, setFiltros] = useState("filtros-movil-oculto")
+
+
+
+
+    const activarFiltros = () => {
+        setFiltros("filtros-movil-activo animate__animated animate__slideInUp")
+    
+    
+    }
+    const desactivarFiltros = () => {
+        setFiltros("filtros-movil-oculto animate__animated animate__slideInDown")
+    }
 
 
 
 
 
-///////////
-
-
+///////////////////////////////////////////////////////
 
 
 
@@ -88,14 +153,165 @@ export default function Search() {
             <Navbar />
 
 
-            <form onSubmit={e => {e.preventDefault();getDatos()}}>
             <div className="filtros-buscador">
-                <div class="input-group mb-3 p-3">
-                    <span class="input-group-text" id="basic-addon1">{searchIcon}</span>
-                    <input type="text" onChange={e => setPreBuscador(e.target.value)} class="form-control" placeholder="Prueba con 'Trap Beat' o 'Reggaeton Beat'" aria-label="Username" aria-describedby="basic-addon1"></input>
+
+                {/* Buscador */}
+                <div className="buscador-input">
+                    <form onSubmit={e => {e.preventDefault();getDatos()}}>
+                        <div class="input-group mb-3 p-3">
+                            <span class="input-group-text" id="basic-addon1">{searchIcon}</span>
+                            <input type="text" onChange={e => setPreBuscador(e.target.value)} class="form-control" placeholder="Prueba con 'Trap Beat' o 'Reggaeton Beat'" aria-label="Username" aria-describedby="basic-addon1"></input>
+                        </div>
+                    </form>
                 </div>
+
+
+                <MediaQuery minWidth={1371}>
+                {/*                  Filtros                  */}
+
+                {/* Estilos */}
+                <div className="seccion-filtros">
+                    <button onClick={() => toggleAcordeon1()} class={"accordion"}>
+                        <div className="caja-estilos-filtros">
+                            <p>Estilos</p><img src={dropDown}/>
+                        </div>
+                    </button>
+                    <div class={acordeon1}>
+                        <div className="contenido-caja">  
+                        <ul onClick={() => {setBuscador(["trap"]);desactivarFiltros() }}>Trap</ul>
+                                <ul onClick={() => {setBuscador(["rap"]);desactivarFiltros() }}>Rap</ul>
+                                <ul onClick={() => {setBuscador(["drill"]);desactivarFiltros() }}>Drill</ul>
+                                <ul onClick={() => {setBuscador(["reggaeton"]);desactivarFiltros() }}>Reggaeton</ul>
+                                <ul onClick={() => {setBuscador(["r&b"]);desactivarFiltros() }}>R&B</ul>
+                        </div> 
+                    </div>
+                </div>
+
+                <hr></hr>
+
+                {/* Precio */}
+                <div className="seccion-filtros">
+                    <button onClick={() => toggleAcordeon2()} class={"accordion"}>
+                        <div className="caja-estilos-filtros">
+                            <p>Precio</p><img src={dropDown}/>
+                        </div>
+                    </button>
+                    <div class={acordeon2}>
+                        <div className="contenido-caja">  
+                                <ul>0€ - 10€</ul>
+                                <ul>10€ - 20€</ul>
+                                <ul>20€ - 50€</ul>
+                                <ul>50€ - 100€</ul>
+                                <ul>+100€</ul>
+                        </div> 
+                    </div>
+                </div>
+
+                <hr></hr>
+                
+                {/* BPM */}
+                <div className="seccion-filtros">
+                    <button onClick={() => toggleAcordeon3()} class={"accordion"}>
+                        <div className="caja-estilos-filtros">
+                            <p>BPM</p><img src={dropDown}/>
+                        </div>
+                    </button>
+                    <div class={acordeon3}>
+                        <div className="contenido-caja">  
+                            <ul>75-85</ul>
+                            <ul>85-100</ul>
+                            <ul>100-120</ul>
+                            <ul>120-130</ul>
+                            <ul>130-145</ul>
+                            <ul>+145</ul>
+                        </div> 
+                    </div>
+                </div>
+                </MediaQuery>
+
+
+
+
+
+
+
+                {/*                     MOVIL                     */}
+
+                <MediaQuery maxWidth={1370}>
+                    <div className="filtros-movil">
+                        <button onClick={() => activarFiltros()}><i class="fas fa-filter"></i>Filtros</button>
+
+                    </div>
+                    
+                    <div className={filtros}>
+                        <i onClick={()=>desactivarFiltros()} className="cerrar far fa-times-circle fa-2x"></i>
+                        <h2 className="encabezado-filtros">Filtros</h2>
+                        <br></br>
+                        <br></br>
+
+                        <div className="seccion-filtros">
+                        
+                            <button onClick={() => toggleAcordeon1()} class={"accordion"}>
+                                <div className="caja-estilos-filtros">
+                                    <p>Estilos</p><img src={dropDown}/>
+                                </div>
+                            </button>
+                            <div class={acordeon1}>
+                                <div className="contenido-caja">
+                                    <ul onClick={() => {setBuscador(["trap"]);desactivarFiltros() }}>Trap</ul>
+                                    <ul onClick={() => {setBuscador(["rap"]);desactivarFiltros() }}>Rap</ul>
+                                    <ul onClick={() => {setBuscador(["drill"]);desactivarFiltros() }}>Drill</ul>
+                                    <ul onClick={() => {setBuscador(["reggaeton"]);desactivarFiltros() }}>Reggaeton</ul>
+                                    <ul onClick={() => {setBuscador(["r&b"]);desactivarFiltros() }}>R&B</ul>
+                                </div> 
+                            </div>
+                        </div>
+
+                        <hr></hr>
+
+                        {/* Precio */}
+                        <div className="seccion-filtros">
+                            <button onClick={() => toggleAcordeon2()} class={"accordion"}>
+                                <div className="caja-estilos-filtros">
+                                    <p>Precio</p><img src={dropDown}/>
+                                </div>
+                            </button>
+                            <div class={acordeon2}>
+                                <div className="contenido-caja">  
+                                    <ul>0€ - 10€</ul>
+                                    <ul>10€ - 20€</ul>
+                                    <ul>20€ - 50€</ul>
+                                    <ul>50€ - 100€</ul>
+                                    <ul>+100€</ul>
+                                </div> 
+                            </div>
+                        </div>
+
+                        <hr></hr>
+                        
+                        {/* BPM */}
+                        <div className="seccion-filtros">
+                            <button onClick={() => toggleAcordeon3()} class={"accordion"}>
+                                <div className="caja-estilos-filtros">
+                                    <p>BPM</p><img src={dropDown}/>
+                                </div>
+                            </button>
+                            <div class={acordeon3}>
+                                <div className="contenido-caja">  
+                                    <ul>75-85</ul>
+                                    <ul>85-100</ul>
+                                    <ul>100-120</ul>
+                                    <ul>120-130</ul>
+                                    <ul>130-145</ul>
+                                    <ul>+145</ul>
+                                </div> 
+                            </div>
+                        </div>
+
+                    </div>
+                </MediaQuery>
+
             </div>
-            </form>
 
 
             <div className="superior-all">
@@ -146,7 +362,7 @@ export default function Search() {
             </div>
             <div className="reproductor-all">
             <Player /> 
-        </div>
+            </div>
         </div>
     )
 }

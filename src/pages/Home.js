@@ -109,7 +109,7 @@ export function Home(props) {
         }
         fetchData()
     },[])
-    console.log(beatmakers)
+    
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -141,6 +141,10 @@ function toggleActiveStyles(index) {
     }
 }
 
+
+
+
+
 // BUSCADOR //////////////////////////////////////////////
 
 const [preBuscador, setPreBuscador] = useState()
@@ -150,7 +154,8 @@ const [buscador, setBuscador] = useContext(GlobalSearchContext);
 /*  console.log(buscador) */
 
 const getDatos= async () => {
-    const datosFiltrados = preBuscador.split(" ");
+    const datosBruto = preBuscador.toLowerCase();
+    const datosFiltrados = datosBruto.split(" ");
     console.log(datosFiltrados)
 
     setBuscador(datosFiltrados);
@@ -163,6 +168,7 @@ const getDatos= async () => {
 
 ///////////////////////////////////////////////////////////////////////////////
 
+const [soundListening, setSoundListening] = useState("soundlistening1")
 
 
 
@@ -203,7 +209,7 @@ const getDatos= async () => {
 {/* ////////////////////////////////////////////////////////////////////////////// */}
 
             {/*  TOP BEATS DE LA SEMANA   */}      
-           <div className="top-beats-semana">
+           <div className="top-beats-semana animate__animated animate__fadeInRight animate__slow">
                {/* {DatosGlobales()} */}
                 <h2>Top Beats de la Semana</h2>
                 {/*  SWIPER   */}   
@@ -221,23 +227,38 @@ const getDatos= async () => {
                                     
                                     <div onClick={(e) => console.log(e)} className="beat-container">    
                                         
-                                        <div className="caja-cuadrada">
-                                            
-                                           <img /* src={estadoReproductor}  */  
-                                           key={index}
+                                        <div  className="caja-cuadrada">
 
-                                            onClick={(e) => {
-                                            setGlobalState({beatActivo:e.target.nextElementSibling.children[0].innerText});
-                                            setCurrentSong({currentPlaying:e.target.nextElementSibling.children[1].innerText});                            
-                                            }}
-                                        
-                                        
-                                            
-                                                                   
+                                           
+                                                <img 
+                                                key={index}
+                                                tabIndex="1"
+                                                onClick={(e) => {
+                                                setGlobalState({beatActivo:e.target.nextElementSibling.children[0].innerText});
+                                                setCurrentSong({currentPlaying:e.target.nextElementSibling.children[1].innerText}); 
+                                                }}
+
+
+                                                src={imagenReproductor}
+                                                className="playerstop" /> 
+
+                                                <div className="info-oculta">
+                                                    <p>{spell.beatUrl}</p>
+                                                    <p>{spell.name}</p> 
+                                                </div>
+
+                                           
+                                          
+
                                      
-                                            src={imagenReproductor}
-                                            
-                                            className="playerstop" /> 
+
+
+                                            <div className={soundListening} >
+                                                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                                            </div>
+                                           
+                                           
+                                           
                                             <div className="info-oculta">
                                                 <p>{spell.beatUrl}</p>
                                                 <p>{spell.name}</p> 
@@ -266,6 +287,13 @@ const getDatos= async () => {
                             ))}
 
               </Swiper>   
+              <div className="ver-mas-div">    
+                        <Link to="/all-beats">    
+                                    
+                            <a className="ver-mas">Ver todos los beats...</a>  
+                                                        
+                        </Link>
+                    </div>  
               </MediaQuery>
             
                 <MediaQuery minWidth={581} maxWidth={800}>   
@@ -326,6 +354,13 @@ const getDatos= async () => {
                                 ))}
 
                 </Swiper>   
+                <div className="ver-mas-div">    
+                        <Link to="/all-beats">    
+                                    
+                            <a className="ver-mas">Ver todos los beats...</a>  
+                                                        
+                        </Link>
+                    </div>  
                 </MediaQuery>
                
                 <MediaQuery minWidth={800} maxWidth={1080}>   
@@ -386,6 +421,13 @@ const getDatos= async () => {
                             ))}
 
               </Swiper>   
+                    <div className="ver-mas-div">    
+                        <Link to="/all-beats">    
+                                    
+                            <a className="ver-mas">Ver todos los beats...</a>  
+                                                        
+                        </Link>
+                    </div>  
               </MediaQuery>
             
                 <MediaQuery minWidth={1081} maxWidth={1370} >   
@@ -445,7 +487,14 @@ const getDatos= async () => {
                                     </SwiperSlide>
                                 ))}
 
-                </Swiper>   
+                </Swiper> 
+                    <div className="ver-mas-div">    
+                    <Link to="/all-beats">    
+                                
+                        <a className="ver-mas">Ver todos los beats...</a>  
+                                                    
+                    </Link>
+                    </div>  
                 </MediaQuery>            
             
                 <MediaQuery minWidth={1371} maxWidth={3000} >   

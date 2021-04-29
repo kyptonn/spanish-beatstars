@@ -136,23 +136,29 @@ export function UploadFile() {
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        const beatNombre = e.target.beatNombre.value;
-        const estilo = e.target.estilo.value;
-        const bpm = e.target.bpm.value;
-        const nota = e.target.nota.value;
-        const precio = e.target.precio.value;
 
+        const beatNombre = (e.target.beatNombre.value).toLowerCase();
+        const estilo = (e.target.estilo.value).toLowerCase();
+        const bpm = (e.target.bpm.value).toLowerCase();
+        const nota = (e.target.nota.value).toLowerCase();
+        const precio = (e.target.precio.value).toLowerCase();
+
+        // generado por los campos de arriba
+        const tagsDefault = [beatNombre, estilo, bpm, nota, precio, usuario]
+
+        // introducido por Beatmaker
         const separarComas = tagsBeat.split(",");
         const tags = separarComas;
         
-
+        // agrupacion de todos los tags
+        const allTags = tagsDefault.concat(tags); // unión de los 2 arrays de tags (el creado automáticamente + el creado por el beatmaker)
 
 
         if(!beatNombre){
             return
         }
 
-
+        
 
         // ACTUALIZAMOS EL CAMPO DE "beatmaker" a "yes"
         db.collection('users/').doc(usuarioID).update({
@@ -177,7 +183,7 @@ export function UploadFile() {
             usuario: usuarioID,
             nombreUsuario: usuario,
             ventas: 0, // este campo se actualizará (.update) cuando alguien compre.
-            etiquetas: tags,
+            etiquetas: allTags,
             fecha: new Date()
             
         }) 
@@ -199,7 +205,7 @@ export function UploadFile() {
             identificador: iden,
             usuario: usuarioID,
             nombreUsuario: usuario,
-            etiquetas: tags,
+            etiquetas: allTags,
             fecha: new Date()
             
         }, {merge:true}) 

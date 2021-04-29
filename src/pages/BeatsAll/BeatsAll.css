@@ -1,5 +1,5 @@
 .superior-all{
-    padding-top: 80px;
+    padding-top: 40px;
 }
 
 .superior-all h1{
@@ -189,7 +189,7 @@
     .filtros-buscador{
         position: absolute;
         width: 300px;
-        height: 550px;
+        height: fit-content;
         background-color: rgb(26, 26, 26);
         top:210px;
         left:50px;

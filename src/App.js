@@ -34,6 +34,7 @@ import OrderConfirmed from './pages/CheckOut/OrderConfirmed';
 import BeatsAdquiridos from './pages/BeatsAdquiridos/BeatsAdquiridos';
 import UpdateAvatar from './pages/UpdateAvatar/UpdateAvatar';
 import Search from './pages/Search/Search';
+import Terminos from './pages/TeminosBeatmaker/Terminos';
 
 
 
@@ -55,6 +56,9 @@ function App() {
           <PrivateRoute path="/update-profile" component={UpdateProfile}/>
           <PrivateRoute path="/update-avatar" component={UpdateAvatar}/>
           <PrivateRoute path="/vender" component={Vender}/>
+
+
+          <Route exact path="/terminos" component={Terminos}/>
           <PrivateRoute path="/subir-beat" component={SubirBeat}/>
           <PrivateRoute path="/confirmacion" component={ConfirmacionSubido}/>
           <PrivateRoute path="/en-venta" component={BeatsVenta}/>

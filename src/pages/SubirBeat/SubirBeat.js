@@ -71,13 +71,14 @@ export default function SubirBeat() {
     return ( 
         <div>
             <div className={confirmado}>
+
                 <div className="mensaje-terminos">
                     <h2>Términos y Condiciones</h2>
                     <h3>Antes de subir tu primer Beat, necesitas confirmar nuestros términos y condiciones</h3>
                    
                     <button className="aceptar-terminos" onClick={() => aceptarTerminos()}>Aceptar Términos</button>
                     <br></br>
-                    <Link to="/subir-beat/terminos">Ver Términos y Condiciones</Link>
+                    <Link to="/terminos">Ver Términos y Condiciones</Link>
                 </div>
 
             </div>
