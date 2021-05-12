@@ -35,6 +35,7 @@ import BeatsAdquiridos from './pages/BeatsAdquiridos/BeatsAdquiridos';
 import UpdateAvatar from './pages/UpdateAvatar/UpdateAvatar';
 import Search from './pages/Search/Search';
 import Terminos from './pages/TeminosBeatmaker/Terminos';
+import BeatMakersAll from './pages/BeatMakersAll/BeatMakersAll';
 
 
 
@@ -71,6 +72,8 @@ function App() {
 
           <Route path="/beat" component={BeatPage}/>
           <Route exact path="/beat/:id" render={props => <BeatPage {...props} />}/>
+
+          <Route path="/all-beatmakers" component={BeatMakersAll}/>
 
           <Route path="/profile/" component={BeatMakerProfile}/>
           <Route exact path="/profile/:id" render={props => <BeatMakerProfile {...props} />}/>

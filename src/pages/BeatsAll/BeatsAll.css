@@ -93,6 +93,17 @@
     z-index: 9;
 }
 
+.contenido-caja ul{
+    transition: 0.9s;
+}
+
+.contenido-caja ul:hover{
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.208);
+    color:rgb(255, 255, 255);
+
+    
+}
 
 
 

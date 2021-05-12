@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect} from 'react'
 import {auth} from '../firebase'
 
 
-const initialCartItems = {items:"", price:0, image:"", beatURL:""};
+const initialCartItems = [];
 const initialCartItemsPrice = 0;
 
 export const GlobalCartItems = React.createContext(initialCartItems);

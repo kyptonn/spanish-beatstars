@@ -1,6 +1,7 @@
 .tutilo-carrito{
     color:white;
     padding-top:100px;
+    text-align: center;
 }
 .contenedor-superior{
     display: grid;
@@ -12,6 +13,8 @@
 
 .imagen-beat{
     width: 180px;
+    height: 180px;
+    object-fit: cover;
     border-radius: 20px;
 }
 .titulo-beat{
@@ -42,10 +45,16 @@
     color:rgb(82, 82, 82);
     margin-top:20px;
     margin-bottom: 30px;
+    text-align: center;
 }
 
-
+.div-volver{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+}
 .boton-volver{
+    display: grid;
     text-decoration: none;
     font-size: 20px;
     background-color: red;
@@ -54,6 +63,11 @@
     padding-left:20px;
     padding-right:20px;
     border-radius: 20px;
+    place-items: center;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+
 }
 
 
@@ -61,6 +75,13 @@
     color:white;
     font-size: 25px;
     margin-top:20px;
+    text-align: center;
+}
+
+.div-procesar-pago{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
 }
 
 .procesar-pago{
@@ -71,4 +92,26 @@
     font-weight: 600;
     border:transparent;
     background-color: rgb(255, 0, 0);
+    text-align: center;
+    align-items: center;
+
+}
+
+
+.general-all-carrito{
+       
+    display:grid;
+    font-family: "Poppins";
+    
+    place-items: center;
+    justify-content: center;
+    justify-self: center;
+    
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+
+   
+}
+
+.contenedor-carrito-beats{
+   
 }

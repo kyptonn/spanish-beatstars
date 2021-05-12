@@ -30,8 +30,14 @@ var searchIcon = <i class="fas fa-search"></i>;
 
 
 export default function Search() {
+
+
     let history = useHistory();
+
+
     const decoratedOnClick = useAccordionToggle();
+
+
     /////// REPRODUCTOR //////////////////////////////////////////////////////
     const [currentSong, setCurrentSong] = useContext(GlobalSongContext)
     const {currentPlaying} = currentSong;
@@ -53,7 +59,7 @@ export default function Search() {
 
 
 
-// BUSCADOR
+    /////// BUSCADOR //////////////////////////////////////////////////////
 
     const [preBuscador, setPreBuscador] = useState()
     const [buscador, setBuscador] = useContext(GlobalSearchContext);
@@ -72,23 +78,125 @@ export default function Search() {
 
     }
 
- ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+
+
+
+    const [spells, setSpells] = useState([])
+    
+
+    // SI buscador INCLUYE €, QUIERE DECIR QUE DEBEMOS FILTRAR POR PRECIOS
+
+    useEffect(()=> {
+        let buscadorString = buscador.toString() // STRING
+
+        let buscadorSinSimbolo = parseInt(buscadorString.replace("€", "")) // NUMERO
+
+        console.log(buscadorSinSimbolo)
 
 
 
 
- const [spells, setSpells] = useState([])
+        if(buscadorString.includes('€')){   // FILTRAR POR PRECIOS
 
- useEffect(()=> {
-     const fetchData = async () => {
-         const db = firebase.firestore()
-         const data = await db.collection("beatsVenta").where('etiquetas', 'array-contains-any', buscador).get()
-         
-         setSpells(data.docs.map(doc => doc.data()))
-     }
-     fetchData()
+            if(buscadorSinSimbolo == 10){               // FILTRO 0€-10€
+                const fetchData = async () => {
+                    const db = firebase.firestore()
+                    const data = await db.collection("beatsVenta").where('precio', '<=', buscadorSinSimbolo).get()
+                    setSpells(data.docs.map(doc => doc.data()))
+                    console.log(spells)
+                }
+                fetchData()
+            
+            }else if( buscadorSinSimbolo == 20 ){       // FILTRO 10€-20€
 
- },[buscador])
+                const fetchData = async () => {
+
+                    const db = firebase.firestore()
+                    const data = await db.collection("beatsVenta").where('precio', '<=', 20).get()
+                    console.log(data.docs.map(doc => doc.data()))
+
+
+                    const datos = data.docs.map(doc => doc.data())
+
+                    let array10a20 = datos.filter(beat => beat.precio > 10);
+                    console.log(array10a20)
+
+                    setSpells(array10a20)
+                   
+                }
+                fetchData()
+
+            } else if ( buscadorSinSimbolo == 50 ){     // FILTRO 20€-50€
+
+                const fetchData = async () => {
+                    const db = firebase.firestore()
+                    const data = await db.collection("beatsVenta").where('precio', '<=', 50).get()
+                    console.log(data.docs.map(doc => doc.data()))
+
+
+                    const datos = data.docs.map(doc => doc.data())
+
+                    let array10a20 = datos.filter(beat => beat.precio > 20);
+                    console.log(array10a20)
+
+                    setSpells(array10a20)
+                   
+                }
+                fetchData()
+
+
+
+            } else if ( buscadorSinSimbolo == 100 ){    // FILTRO 50€-100€ 
+
+                const fetchData = async () => {
+                    const db = firebase.firestore()
+                    const data = await db.collection("beatsVenta").where('precio', '<=', 100).get()
+                    console.log(data.docs.map(doc => doc.data()))
+
+
+                    const datos = data.docs.map(doc => doc.data())
+
+                    let array10a20 = datos.filter(beat => beat.precio > 50);
+                    console.log(array10a20)
+
+                    setSpells(array10a20)
+                   
+                }
+                fetchData()
+
+
+            } else if ( buscadorSinSimbolo == 101 ){    // FILTRO +100€
+
+                const fetchData = async () => {
+                    const db = firebase.firestore()
+                    const data = await db.collection("beatsVenta").where('precio', '>', 100).get()
+                    console.log(data.docs.map(doc => doc.data()))
+
+
+                    const datos = data.docs.map(doc => doc.data())
+
+
+                    setSpells(datos)
+                   
+                }
+                fetchData()
+
+            }
+
+        }else{
+
+            const fetchData = async () => {
+                const db = firebase.firestore()
+                const data = await db.collection("beatsVenta").where('etiquetas', 'array-contains-any', buscador).get()
+                
+                setSpells(data.docs.map(doc => doc.data()))
+            }
+            fetchData()
+
+        }
+        
+    },[buscador])
 
 
 ///////////////////////////////////////////////////////
@@ -161,7 +269,9 @@ const toggleAcordeon3 = () => {
                         <div class="input-group mb-3 p-3">
                             <span class="input-group-text" id="basic-addon1">{searchIcon}</span>
                             <input type="text" onChange={e => setPreBuscador(e.target.value)} class="form-control" placeholder="Prueba con 'Trap Beat' o 'Reggaeton Beat'" aria-label="Username" aria-describedby="basic-addon1"></input>
+                            
                         </div>
+                            <h5 onClick={() => history.push('/all-beats')} className="eliminar-filtros-menu">Eliminar filtros</h5>
                     </form>
                 </div>
 
@@ -198,11 +308,11 @@ const toggleAcordeon3 = () => {
                     </button>
                     <div class={acordeon2}>
                         <div className="contenido-caja">  
-                                <ul>0€ - 10€</ul>
-                                <ul>10€ - 20€</ul>
-                                <ul>20€ - 50€</ul>
-                                <ul>50€ - 100€</ul>
-                                <ul>+100€</ul>
+                                <ul onClick={() => {setBuscador(["10€"]);history.push(`/search?/q=${buscador}`) }}>0€ - 10€</ul>
+                                <ul onClick={() => {setBuscador(["20€"]);history.push(`/search?/q=${buscador}`) }}>10€ - 20€</ul>
+                                <ul onClick={() => {setBuscador(["50€"]);history.push(`/search?/q=${buscador}`) }}>20€ - 50€</ul>
+                                <ul onClick={() => {setBuscador(["100€"]);history.push(`/search?/q=${buscador}`) }}>50€ - 100€</ul>         
+                                <ul onClick={() => {setBuscador(["101€"]);history.push(`/search?/q=${buscador}`) }}>+100€</ul> 
                         </div> 
                     </div>
                 </div>
@@ -278,11 +388,11 @@ const toggleAcordeon3 = () => {
                             </button>
                             <div class={acordeon2}>
                                 <div className="contenido-caja">  
-                                    <ul>0€ - 10€</ul>
-                                    <ul>10€ - 20€</ul>
-                                    <ul>20€ - 50€</ul>
-                                    <ul>50€ - 100€</ul>
-                                    <ul>+100€</ul>
+                                <ul onClick={() => {setBuscador(["10€"]);history.push(`/search?/q=${buscador}`) }}>0€ - 10€</ul>
+                                <ul onClick={() => {setBuscador(["20€"]);history.push(`/search?/q=${buscador}`) }}>10€ - 20€</ul>
+                                <ul onClick={() => {setBuscador(["50€"]);history.push(`/search?/q=${buscador}`) }}>20€ - 50€</ul>
+                                <ul onClick={() => {setBuscador(["100€"]);history.push(`/search?/q=${buscador}`) }}>50€ - 100€</ul>         
+                                <ul onClick={() => {setBuscador(["101€"]);history.push(`/search?/q=${buscador}`) }}>+100€</ul> 
                                 </div> 
                             </div>
                         </div>

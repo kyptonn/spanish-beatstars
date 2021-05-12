@@ -206,6 +206,9 @@ const [soundListening, setSoundListening] = useState("soundlistening1")
             </form>
 
 
+
+
+
 {/* ////////////////////////////////////////////////////////////////////////////// */}
 
             {/*  TOP BEATS DE LA SEMANA   */}      
@@ -739,20 +742,6 @@ const [soundListening, setSoundListening] = useState("soundlistening1")
                 </MediaQuery>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
                 
             </div>
 
@@ -760,7 +749,7 @@ const [soundListening, setSoundListening] = useState("soundlistening1")
           
             {/*  TOP BEATMAKERS   */}  
             <div className="top-beatmakers">
-                <h2>Mejores Beatmakers</h2>
+                <h2>Top Estilos</h2>
                 {/*  SWIPER   */}    
 
 
@@ -773,8 +762,8 @@ const [soundListening, setSoundListening] = useState("soundlistening1")
                         <SwiperSlide>
 
 
-                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
-                                    <Link to={`/estilos/${estilo.nombre}`}>  
+                                <div onClick={() => {setBuscador([estilo.nombre.toLocaleLowerCase()]);history.push(`/search?/q=${buscador}`)}} className="beatmaker-container">
+                                    {/* <Link to={`/search?/q=${estilo.nombre}`}>  */}
                                         
                                         <div className="caja-cuadrada-beatmaker">          
                                             <img className="imagen-fondo-beatmakers"src={estilo.imagen}/>  
@@ -782,7 +771,7 @@ const [soundListening, setSoundListening] = useState("soundlistening1")
 
                                         <h3>{estilo.nombre}</h3>   
 
-                                    </Link>
+                                   {/*  </Link> */}
                                 </div>
 
 
@@ -803,8 +792,8 @@ const [soundListening, setSoundListening] = useState("soundlistening1")
                         <SwiperSlide>
 
 
-                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
-                                    <Link to={`/estilos/${estilo.nombre}`}>  
+                                <div onClick={() => {setBuscador([estilo.nombre.toLocaleLowerCase()]);history.push(`/search?/q=${buscador}`)}} className="beatmaker-container">
+                                    {/* <Link to={`/search?/q=${estilo.nombre}`}>  */}
                                         
                                         <div className="caja-cuadrada-beatmaker">          
                                             <img className="imagen-fondo-beatmakers"src={estilo.imagen}/>  
@@ -812,7 +801,7 @@ const [soundListening, setSoundListening] = useState("soundlistening1")
 
                                         <h3>{estilo.nombre}</h3>   
 
-                                    </Link>
+                                   {/*  </Link> */}
                                 </div>
 
 
@@ -833,8 +822,8 @@ const [soundListening, setSoundListening] = useState("soundlistening1")
                         <SwiperSlide>
 
 
-                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
-                                    <Link to={`/estilos/${estilo.nombre}`}>  
+                                <div onClick={() => {setBuscador([estilo.nombre.toLocaleLowerCase()]);history.push(`/search?/q=${buscador}`)}} className="beatmaker-container">
+                                    {/* <Link to={`/search?/q=${estilo.nombre}`}>  */}
                                         
                                         <div className="caja-cuadrada-beatmaker">          
                                             <img className="imagen-fondo-beatmakers"src={estilo.imagen}/>  
@@ -842,7 +831,7 @@ const [soundListening, setSoundListening] = useState("soundlistening1")
 
                                         <h3>{estilo.nombre}</h3>   
 
-                                    </Link>
+                                   {/*  </Link> */}
                                 </div>
 
 
@@ -863,8 +852,8 @@ const [soundListening, setSoundListening] = useState("soundlistening1")
                         <SwiperSlide>
 
 
-                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
-                                    <Link to={`/estilos/${estilo.nombre}`}>  
+                                <div onClick={() => {setBuscador([estilo.nombre.toLocaleLowerCase()]);history.push(`/search?/q=${buscador}`)}} className="beatmaker-container">
+                                    {/* <Link to={`/search?/q=${estilo.nombre}`}>  */}
                                         
                                         <div className="caja-cuadrada-beatmaker">          
                                             <img className="imagen-fondo-beatmakers"src={estilo.imagen}/>  
@@ -872,7 +861,7 @@ const [soundListening, setSoundListening] = useState("soundlistening1")
 
                                         <h3>{estilo.nombre}</h3>   
 
-                                    </Link>
+                                   {/*  </Link> */}
                                 </div>
 
 
@@ -893,8 +882,8 @@ const [soundListening, setSoundListening] = useState("soundlistening1")
                         <SwiperSlide>
 
 
-                                <div onClick={(e) => console.log(e)} className="beatmaker-container">
-                                    <Link to={`/estilos/${estilo.nombre}`}>  
+                                <div onClick={() => {setBuscador([estilo.nombre.toLocaleLowerCase()]);history.push(`/search?/q=${buscador}`)}} className="beatmaker-container">
+                                    {/* <Link to={`/search?/q=${estilo.nombre}`}>  */}
                                         
                                         <div className="caja-cuadrada-beatmaker">          
                                             <img className="imagen-fondo-beatmakers"src={estilo.imagen}/>  
@@ -902,7 +891,7 @@ const [soundListening, setSoundListening] = useState("soundlistening1")
 
                                         <h3>{estilo.nombre}</h3>   
 
-                                    </Link>
+                                   {/*  </Link> */}
                                 </div>
 
 
@@ -914,21 +903,6 @@ const [soundListening, setSoundListening] = useState("soundlistening1")
                 </Swiper>
                 </MediaQuery>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
                 
             </div>
 

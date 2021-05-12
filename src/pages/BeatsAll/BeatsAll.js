@@ -75,10 +75,10 @@ export default function BeatsAll() {
    const getDatos= async () => {
         const datosBruto = preBuscador.toLowerCase();
         const datosFiltrados = datosBruto.split(" ");
-        console.log(datosFiltrados)
+        console.log(datosFiltrados) 
      
         setBuscador(datosFiltrados);
-        console.log(datosFiltrados)
+       /*  console.log(datosFiltrados) */
 
         await history.push(`/search?q=${datosFiltrados}`);
       
@@ -163,9 +163,14 @@ const desactivarFiltros = () => {
                 </div>
 
 
+                {/*                  Filtros                  */}
+
+
+
+
+                {/*            Pantalla Grande              */}
 
                 <MediaQuery minWidth={1371}>
-                {/*                  Filtros                  */}
 
                 {/* Estilos */}
                 <div className="seccion-filtros">
@@ -176,7 +181,7 @@ const desactivarFiltros = () => {
                     </button>
                     <div class={acordeon1}>
                         <div className="contenido-caja">  
-                        <ul onClick={() => {setBuscador(["trap"]);history.push(`/search?/q=${buscador}`) }}>Trap</ul>
+                                    <ul onClick={() => {setBuscador(["trap"]);history.push(`/search?/q=${buscador}`) }}>Trap</ul>
                                     <ul onClick={() => {setBuscador(["rap"]);history.push(`/search?/q=${buscador}`) }}>Rap</ul>
                                     <ul onClick={() => {setBuscador(["drill"]);history.push(`/search?/q=${buscador}`)}}>Drill</ul>
                                     <ul onClick={() => {setBuscador(["reggaeton"]);history.push(`/search?/q=${buscador}`) }}>Reggaeton</ul>
@@ -197,11 +202,12 @@ const desactivarFiltros = () => {
                     </button>
                     <div class={acordeon2}>
                         <div className="contenido-caja">  
-                                <ul>0€ - 10€</ul>
-                                <ul>10€ - 20€</ul>
-                                <ul>20€ - 50€</ul>
-                                <ul>50€ - 100€</ul>
-                                <ul>+100€</ul>
+                                <ul onClick={() => {setBuscador(["10€"]);history.push(`/search?/q=${buscador}`) }}>0€ - 10€</ul>
+                                <ul onClick={() => {setBuscador(["20€"]);history.push(`/search?/q=${buscador}`) }}>10€ - 20€</ul>
+                                <ul onClick={() => {setBuscador(["50€"]);history.push(`/search?/q=${buscador}`) }}>20€ - 50€</ul>
+                                <ul onClick={() => {setBuscador(["100€"]);history.push(`/search?/q=${buscador}`) }}>50€ - 100€</ul>         
+                                <ul onClick={() => {setBuscador(["101€"]);history.push(`/search?/q=${buscador}`) }}>+100€</ul>         
+                              
                         </div> 
                     </div>
                 </div>
@@ -292,11 +298,11 @@ const desactivarFiltros = () => {
                             </button>
                             <div class={acordeon2}>
                                 <div className="contenido-caja">  
-                                        <ul>0€ - 10€</ul>
-                                        <ul>10€ - 20€</ul>
-                                        <ul>20€ - 50€</ul>
-                                        <ul>50€ - 100€</ul>
-                                        <ul>+100€</ul>
+                                    <ul onClick={() => {setBuscador(["10€"]);history.push(`/search?/q=${buscador}`) }}>0€ - 10€</ul>
+                                    <ul onClick={() => {setBuscador(["20€"]);history.push(`/search?/q=${buscador}`) }}>10€ - 20€</ul>
+                                    <ul onClick={() => {setBuscador(["50€"]);history.push(`/search?/q=${buscador}`) }}>20€ - 50€</ul>
+                                    <ul onClick={() => {setBuscador(["100€"]);history.push(`/search?/q=${buscador}`) }}>50€ - 100€</ul>         
+                                    <ul onClick={() => {setBuscador(["101€"]);history.push(`/search?/q=${buscador}`) }}>+100€</ul> 
                                 </div> 
                             </div>
                         </div>

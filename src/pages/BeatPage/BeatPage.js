@@ -33,6 +33,11 @@ const db = app.firestore()
 
 
 
+// HAY QUE CAMBIAR LA REACCIÓN AL HACER CLICK EN EL BOTÓN DE REPRODUCIR
+// ACTUALMENTE, ESTA INTENTANDO BUSCAR EL ARCHIVO WAV ( PERO NO HAY NINGUNO)
+// HEMOS DE HACER QUE AL HACER PLAY, BUSQUE EL ARCHIVO MP3, 
+// Y CUANDO SE AÑADA AL CARRITO, BUSQUE EL ARCHIVO WAV
+
 export default function BeatMaker() {
     const history = useHistory();
 
@@ -43,7 +48,7 @@ export default function BeatMaker() {
     var beatURL = parseInt(cleanURL)
     
     
-    console.log(beatURL)
+    /*  */
     
     /////// REPRODUCTOR //////////////////////////////////////////////////////
     const [currentSong, setCurrentSong] = useContext(GlobalSongContext)
@@ -66,14 +71,14 @@ export default function BeatMaker() {
     const [bpm, setBpm] = useState()
     const [fecha, setFecha] = useState()
     const [precio, setPrecio] = useState()
+
+    const [URLbeatMP3, setURLbeatMP3] = useState()
     const [URLbeat, setURLBeat] = useState()
 
    
     const [datosGenerales, setDatosGenerales] = useState("");
 
   
-
-
     
     useEffect(() => {  
             firebase.firestore().collection('beatsVenta').where('identificador', '==', beatURL).get()
@@ -97,9 +102,10 @@ export default function BeatMaker() {
 
 
                         setPrecio(datos.precio);
-                        setURLBeat(datos.beatUrl);
+                        setURLBeat(datos.beatUrlWav);
+                        setURLbeatMP3(datos.beatUrl);
        
-                        console.log(titulo)
+                       /*  console.log(titulo) */
                     })
                     
                 })
@@ -107,179 +113,29 @@ export default function BeatMaker() {
         },[titulo,imagen]) 
     
 
-
-    /////// RENDER FUNCTIONS
-    // function Titulo(){  
-       
-    //     useEffect(() => {  
-
-    //     firebase.firestore().collection('beatsVenta').where('identificador', '==', beatURL).get()
-    //         .then((snapshot) => {
-    //             snapshot.docs.forEach(doc => {
-    //                 const datos = doc.data()
-            
-    //                /*  setImagen(datos.imagenURL) */
-    //                 setTitulo(datos.name)
-    //                 setUsuario(datos.usuario)
-                
-    //                 /* console.log('hola') */
-    //                 console.log(usuario) 
-    //             })
-    //         })
-    //     },[usuario]) 
-
-    //     return <h2>{titulo}</h2>
-
-    // }
-
-    // function Imagen(){  
-       
-
-    //     useEffect(() => {  
-    //     firebase.firestore().collection('beatsVenta').where('identificador', '==', beatURL).get()
-    //         .then((snapshot) => {
-    //             snapshot.docs.forEach(doc => {
-    //                 const datos = doc.data()
-            
-    //                 setImagen(datos.imagenURL)
-    //                 /* setTitulo(datos.name) */
-                
-    //                /*  console.log(imagen) */
-    //                 /* console.log(datos)  */
-    //             })
-    //         })
-    //     },[]) 
-    //     return imagen
-
-    // }
-
-    // function Usuario(){  
-       
-    //     useEffect(() => {  
-    //     firebase.firestore().collection('beatsVenta').where('identificador', '==', beatURL).get()
-    //         .then((snapshot) => {
-    //             snapshot.docs.forEach(doc => {
-    //                 const datos = doc.data()
-            
-    //                 setBeatmaker(datos.nombreUsuario)
-                   
-    //                 /* console.log(datos)  */
-    //             })
-    //         })
-    //     },[usuario]) 
-    //      return  beatmaker
-
-
-    // }
-
-    // function Bpm(){  
-        
-        
-        
-    //     useEffect(() => {  
-    //     firebase.firestore().collection('beatsVenta').where('identificador', '==', beatURL).get()
-    //         .then((snapshot) => {
-    //             snapshot.docs.forEach(doc => {
-    //                 const datos = doc.data()
-            
-    //                 setBpm(datos.BPM)
-                   
-    //                 /* console.log(datos)  */
-    //             })
-    //         })
-    //     },[usuario]) 
-    //      return  bpm
-
-
-    // }   
-    
-    // function Fecha(){  
-        
-    //     useEffect(() => {  
-    //     firebase.firestore().collection('beatsVenta').where('identificador', '==', beatURL).get()
-    //         .then((snapshot) => {
-    //             snapshot.docs.forEach(doc => {
-    //                 const datos = doc.data()
-    //                 const fechaM = datos.fecha
-
-    //                 const seconds = parseInt(fechaM.seconds*1000)
-
-    //                 var newDate = new Date(seconds).toLocaleDateString("es-ES");
-    //                 setFecha(newDate)
-                    
-    //                 /* console.log(datos)  */
-    //             })
-    //         })
-    //     },[usuario]) 
-    //     /* onsole.log(fecha)  */
-    //      return fecha
-
-
-    // }    
-    
-    
-    // function Precio(){  
-        
-        
-    //     useEffect(() => {  
-    //     firebase.firestore().collection('beatsVenta').where('identificador', '==', beatURL).get()
-    //         .then((snapshot) => {
-    //             snapshot.docs.forEach(doc => {
-    //                 const datos = doc.data()
-                    
-
-    //                 setPrecio(parseInt(datos.precio))
-                   
-    //             })
-    //         })
-    //     },[usuario]) 
-    //     /* onsole.log(fecha)  */
-    //      return precio
-
-
-    // }   
-    
-    
-    // function BeatURL(){  
-        
-        
-    //     useEffect(() => {  
-    //     firebase.firestore().collection('beatsVenta').where('identificador', '==', beatURL).get()
-    //         .then((snapshot) => {
-    //             snapshot.docs.forEach(doc => {
-    //                 const datos = doc.data()
-                    
-    //                 setURLBeat(datos.beatUrl)
-
-    //                 /* console.log(datos)  */
-    //             })
-    //         })
-    //     },[usuario]) 
-    //     /* onsole.log(fecha)  */
-    //      return URLbeat
-
-    // }   
-    /////// RENDER FUNCTIONS
-
-
 /* /////// CARRITO ////////////////////////////////////////////////////////// */
    
    
    
     const [cartItems, setCartItems] = useContext(GlobalCartItems)
-    console.log(cartItems)
 
     // AÑADIDO AL CARRITO OVERLAY //
     const [carro, setCarro] = useState("div-overlay-oculto")
 
+    var objetoCarrito = (titulo, precio, imagen, URLbeat)
 
-    const AgregarCarrito = (items, price, image, beatURL) => {
+    // UID DEL USUARIO
+    const {currentUser} = useAuth()
+    const usuarioID =currentUser.uid 
+
+
     
-        setCartItems(items, price, image, beatURL);
-        console.log(cartItems)
+    const AgregarCarrito = async (objetoCarrito) => {
+
+        setCartItems([...cartItems, objetoCarrito]);
 
     }
-    
+  
 ////////////////////////////////////////////////////////////////////////////
 
    
@@ -302,7 +158,7 @@ export default function BeatMaker() {
 
                     <div className="info-oculta">
                         <p>{titulo}</p>
-                        <p>{URLbeat}</p>
+                        <p>{URLbeatMP3}</p>
                     </div>
 
                     <div className="perfil-beatmaker">

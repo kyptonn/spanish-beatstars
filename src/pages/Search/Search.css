@@ -165,6 +165,19 @@
   }
 
 
+  .eliminar-filtros-menu{
+    color:rgb(103, 103, 254);
+    font-size: 15px;
+    margin-left: 15px;
+    cursor: pointer;
+    transition: 0.6s;
+  }
+
+  .eliminar-filtros-menu:hover{
+    color:rgb(36, 189, 255);
+  }
+
+
   @media (max-width:1370px){
     .buscador-input{
       padding-top:50px;

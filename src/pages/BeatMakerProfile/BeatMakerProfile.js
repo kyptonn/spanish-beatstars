@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import { Navbar } from '../../components/Navbar'
 import NavToggler from '../../components/NavToggler/NavToggler'
 import './BeatMakerProfile.css'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import firebase from '../../firebase'
 import {useAuth} from '../../contexts/AuthContext'
 
@@ -12,18 +12,20 @@ import defaultProfile2 from './default-profile2.jpeg';
 import defaultProfile3 from './default-profile3.jpeg';
 import defaultProfile4 from './default-profile4.jpeg';
 
+import carrito from '../BeatPage/carrito.png'
+
 import play from '../../components/circuloplay.png'
 import { Player } from '../../components/AudioPlayer'
 import { GlobalStateContext } from '../../contexts/GlobalState';
 import { GlobalSongContext} from '../../contexts/CurrentPlaying';
 import 'react-h5-audio-player/lib/styles.css';
-
+import {GlobalCartItems} from '../../contexts/CartContext'
 
 
 
 
 export default function BeatMakerProfile() {
-
+    const history = useHistory();
 /////// REPRODUCTOR //////////////////////////////////////////////////////
    const [currentSong, setCurrentSong] = useContext(GlobalSongContext)
    const {currentPlaying} = currentSong;
@@ -94,6 +96,14 @@ export default function BeatMakerProfile() {
 
 
 
+   
+    const [cartItems, setCartItems] = useContext(GlobalCartItems)
+    
+
+    
+////////////////////////////////////////////////////////////////////////////
+
+
 
 
     return (
@@ -124,21 +134,22 @@ export default function BeatMakerProfile() {
                 </div>
 
                 <div className="beats">
-                <table>
+
+
+
+                <table >
                     <thead>
-                           
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Play</th>
-                                    <th>Estilo</th>
-                                  
-                                    <th>Precio</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Play</th>
+                                    <th scope="col">Estilo</th>
+                                    <th scope="col">Precio</th>
                                 </tr>
-                            
                     </thead>
                     <br></br>
                     <tbody>
-                            <th>
+                        
+                            <th scope="row">
                                 {spells.map(spell => (
                                         <div className="link-nombre">
                                             <ul key={spell.name}><Link to={`/beat/${spell.identificador}`}>{spell.name}</Link></ul> 
@@ -146,7 +157,7 @@ export default function BeatMakerProfile() {
                                     ))}
                             </th>
 
-                            <th>
+                            <th scope="row">
                             {spells.map(spell => (
                                          
                                 <div onClick={()=>{
@@ -164,7 +175,7 @@ export default function BeatMakerProfile() {
                             </th>
 
 
-                            <th>
+                            <th scope="row">
                                 {spells.map(spell => (
                                     <div className="estilo-columna">
                                         <ul key={spell.estilo}><p>{spell.estilo}</p></ul>
@@ -174,18 +185,20 @@ export default function BeatMakerProfile() {
 
                             
 
-                            <th>
+                            <th scope="row">
                                 {spells.map(spell => (
-                                <ul className="precio" key={spell.precio}><p>{spell.precio}€</p></ul>
+                                    <div className="estilo-columna">
+                                        <ul className="precio" key={spell.precio}><button onClick={() => history.push(`/beat/${spell.identificador}`)} className="boton-compra-perfil">{spell.precio}€</button></ul>
+                                    </div>
                                 ))}
-                                
                             </th>
                                     
                     </tbody>
+
                 </table>
 
                 </div>
-
+               
 
 
 

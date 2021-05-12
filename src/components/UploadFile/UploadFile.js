@@ -22,15 +22,25 @@ export function UploadFile() {
     const history = useHistory()
                           
     const [fileUrl, setFileUrl] = React.useState(null) 
-    const [fileUrl2, setFileUrl2] = React.useState(null)        //
-                                                                //
-    const [beatSubido, setBeatSubido] = useState("")            //
-    useEffect(() => {                                           //                                                        
-    },[beatSubido])                                             //
-                                                                //                                                      
-    const [beatCargado, setBeatCargado] = useState("")          //
-    useEffect(() => {                                           //                                                    
+    const [fileUrl2, setFileUrl2] = React.useState(null)
+    const [fileUrlWav, setFileUrlWav] = React.useState(null)   
+      
+
+    const [beatSubido, setBeatSubido] = useState("")            
+    useEffect(() => {                                                                                                   
+    },[beatSubido])                                             
+      
+                                                         
+    const [beatCargado, setBeatCargado] = useState("")          
+    useEffect(() => {                                                                                               
     },[beatCargado])    
+
+
+    const [beatCargadoWav, setBeatCargadoWav] = useState("")       
+    useEffect(() => {                                                                                               
+    },[beatCargadoWav])    
+
+
 
     const [imagenCargado, setImagenCargado] = useState("")          
     useEffect(() => {                                                                                             
@@ -89,6 +99,27 @@ export function UploadFile() {
         setBeatCargado(file.name)
         setLoading("")
     }
+
+
+     // audio WAV
+     const onFileChangeWav = async (e) => {
+
+        const userDocument = await firebase.firestore().collection(`users`).doc(usuarioID).get();
+        /*  console.log(userDocument.data()) */
+         const dataUsuario = userDocument.data();
+         const nombreUsario = dataUsuario.displayName; //
+
+
+        const file = e.target.files[0]
+        const storageRef = app.storage().ref(`Beats/${nombreUsario}/BeatsSubidos`)   // si en vez de crear una carpeta (en Storage) con el ID del usuario, queremos
+        const fileRef = storageRef.child(file.name)                  // crear una carpeta con el Nombre del usuario, deberemos remplazar
+        await fileRef.put(file)                                       // el campo ${usuarioID} por ${nombreUsuario}
+        setFileUrlWav(await fileRef.getDownloadURL())
+
+        setBeatCargadoWav(file.name)
+        setLoading("")
+    }
+
     
     // imagen
     const onFileChange2 = async (e) => {
@@ -141,10 +172,10 @@ export function UploadFile() {
         const estilo = (e.target.estilo.value).toLowerCase();
         const bpm = (e.target.bpm.value).toLowerCase();
         const nota = (e.target.nota.value).toLowerCase();
-        const precio = (e.target.precio.value).toLowerCase();
+        const precio = parseInt((e.target.precio.value));
 
         // generado por los campos de arriba
-        const tagsDefault = [beatNombre, estilo, bpm, nota, precio, usuario]
+        const tagsDefault = [beatNombre, estilo, bpm, nota, usuario]
 
         // introducido por Beatmaker
         const separarComas = tagsBeat.split(",");
@@ -174,6 +205,7 @@ export function UploadFile() {
         db.collection('users/').doc(usuarioID).collection('beatsSubidos').doc(beatNombre).set({
             name: beatNombre,
             beatUrl: fileUrl,
+            beatUrlWav: fileUrlWav,
             imagenURL: fileUrl2,
             estilo: estilo,
             BPM: bpm,
@@ -197,6 +229,7 @@ export function UploadFile() {
         db.collection('beatsVenta/').doc(beatNombre).set({ // hay que comprobar si esto esta bien
             name: beatNombre,
             beatUrl: fileUrl,
+            beatUrlWav: fileUrlWav,
             imagenURL: fileUrl2,
             estilo: estilo,
             BPM: bpm,
@@ -210,28 +243,6 @@ export function UploadFile() {
             
         }, {merge:true}) 
 
-
-
-
-
-
-
-
-        /* // METODO B - SUBIMOS ARCHIVO A DB AÑADIENDO UN CAMPO
-        db.collection('users/').doc(usuarioID).set({
-            beatsSubidos:[             
-                {
-                    name: beatNombre,
-                    beatUrl: fileUrl,
-                    imagenURL: fileUrl2,
-                    estilo: estilo,
-                    BPM: bpm,
-                    nota: nota,
-                    precio: precio,
-                    identificador: iden 
-                }
-            ] 
-        },{ merge: true }) */
 
 
 
@@ -272,13 +283,12 @@ export function UploadFile() {
 
                         
                         <input className="subir-archivo-boton"type="file" id="files" onChange={onFileChange}  />
+                        <label onClick={() => setLoading(!loading)} className="subir-archivo"for="files">Selecciona tu Beat (mp3)</label>
                         
-                        <label onClick={() => setLoading(!loading)} className="subir-archivo"for="files">Selecciona tu Beat</label>
-                        {/* <input
-                        value={color}
-                        onChange={(input) => setColor(input.target.value)}
-                        placeholder="Color of the loader"
-                        /> */}
+                        
+                        <input className="subir-archivo-boton"type="file" id="filesWav" onChange={onFileChangeWav}  />
+                        <label onClick={() => setLoading(!loading)} className="subir-archivo"for="filesWav">Selecciona tu Beat (wav)</label>
+                  
                                     
                         <input className="subir-archivo-boton"type="file" id="filesImagen" onChange={onFileChange2}  />
                         <label onClick={() => setLoading(!loading)} className="subir-archivo"for="filesImagen">Selecciona tu Portada</label>
